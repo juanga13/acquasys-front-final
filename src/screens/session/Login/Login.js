@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import sessionActions from '../redux/actions/session'
+import sessionActions from '../session.actions'
 import { withRouter } from 'react-router-dom';
 import LoginForm from './LoginForm';
-import { Grid, Header, Message } from 'semantic-ui-react';
-import requestStates from '../utils/requestStates';
+import { Header, Message, Segment } from 'semantic-ui-react';
+import requestStates from '../../../utils/requestStates';
+import './Login.scss'
 
 class Login extends Component {
     handleLogin = data => {
@@ -13,13 +14,15 @@ class Login extends Component {
     }
 
     render() {
-        console.log('render')
-        console.log(this.props)
+        console.log('rendering login')
         return (
-            <div className=''>
-                <Header dividing>Ingrese al sistema</Header>
-                {this.props.loginStatus === requestStates.ERROR && <Message error content='Hubo un error al enviar el formulario.'/>}
-                <LoginForm onSubmit={this.handleLogin} loading={this.props.loginStatus === requestStates.LOADING}/> 
+            <div className='login-form'>
+                <Segment size='big'>
+                    <Header dividing>Ingrese al sistema</Header>
+                    {this.props.loginStatus === requestStates.ERROR && <Message error content='Hubo un error al enviar el formulario.'/>}
+                    {/* <h1>{}</h1> */}
+                    <LoginForm onSubmit={this.handleLogin} loading={this.props.loginStatus === requestStates.LOADING}/> 
+                </Segment>
             </div>
         )
     }

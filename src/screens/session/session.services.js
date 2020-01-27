@@ -1,5 +1,4 @@
 import { baseUrl } from '../../settings'
-import sessionActions from '../actions/session';
 
 const requests = {
     login: (email, password) => {
@@ -37,9 +36,22 @@ const requests = {
                 }
             )
     },
-    register: (email, password, data = {}) => {
-        console.log('services session login');
     
+    refreshToken: () => {
+        console.log('services refreshing token');
+        const roleRequestOptions = {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache"
+        };
+        return fetch(baseUrl + "/oauth/check_token?token=" + localStorage.getItem('token'), roleRequestOptions)
+            .then(response => { return response.json() })
+            .then(myJson => {
+                console.log(myJson);
+                return ;
+            })
+            .catch(error => console.error(error))
+            
     }
 }
 
