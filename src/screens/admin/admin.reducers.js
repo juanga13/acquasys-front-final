@@ -86,51 +86,51 @@ import {
             return {
                 ...state,
                 responseTeachers: action.response,
-                getProfileStatus: requestStates.RESPONSE,
+                getTeachersStatus: requestStates.SUCCESS,
             }
         case GET_TEACHERS_ERROR:
             return {
                 ...state,
                 responseTeachers: action.response,
-                getProfileStatus: requestStates.ERROR,
+                getTeachersStatus: requestStates.ERROR,
             }
         
         /* Get lessons */
         case GET_LESSONS:
             return {
                 ...state,
-                getProfileStatus: requestStates.LOADING,
+                getLessonsStatus: requestStates.LOADING,
             }
         case GET_LESSONS_RESPONSE:
             return {
                 ...state,
-                responseTeachers: action.response,
-                getProfileStatus: requestStates.RESPONSE,
+                responseLessons: action.response,
+                getLessonsStatus: requestStates.SUCCESS,
             }
         case GET_LESSONS_ERROR:
             return {
                 ...state,
-                responseTeachers: action.response,
-                getProfileStatus: requestStates.ERROR,
+                responseLessons: action.response,
+                getLessonsStatus: requestStates.ERROR,
             }
         
         /* Get payments */
         case GET_PAYMENTS:
             return {
                 ...state,
-                getProfileStatus: requestStates.LOADING,
+                getPaymentsStatus: requestStates.LOADING,
             }
         case GET_PAYMENTS_RESPONSE:
             return {
                 ...state,
-                responseTeachers: action.response,
-                getProfileStatus: requestStates.RESPONSE,
+                responsePayments: action.response,
+                getPaymentsStatus: requestStates.SUCCESS,
             }
         case GET_PAYMENTS_ERROR:
             return {
                 ...state,
-                responseTeachers: action.response,
-                getProfileStatus: requestStates.ERROR,
+                responsePayments: action.response,
+                getPaymentsStatus: requestStates.ERROR,
             }
       default:
         return state

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Header, Icon, Button } from 'semantic-ui-react'
 
-export class NoMatch extends Component {
+class NoMatch extends Component {
     render() {
+        console.log("redirecting to home")
         return (
             <Header as='h2' icon>
                 <Icon name='settings'/>

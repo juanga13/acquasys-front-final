@@ -19,17 +19,13 @@ const requests = {
         let tokenData = {token: '', role: ''}
         return fetch(baseUrl + '/oauth/token', tokenRequestOptions)
             .then(res => {
-                console.log('first login fetch')
-                console.log(res)
                 if (res.ok) return res.json();
                 else throw (res.status)
             })
             .then(myJson => {
-                console.log(myJson);
                 tokenData.token = myJson.access_token;
                 return fetch(baseUrl + "/oauth/check_token?token=" + tokenData.token, roleRequestOptions)
                     .then(response => { return response.json() }).then(myJson => {
-                        console.log(myJson);
                         tokenData.role = myJson.authorities[0];
                         return tokenData;
                     })
@@ -37,7 +33,7 @@ const requests = {
             )
     },
     
-    refreshToken: () => {
+    checkToken: () => {
         console.log('services refreshing token');
         const roleRequestOptions = {
             method: "GET",
@@ -46,12 +42,8 @@ const requests = {
         };
         return fetch(baseUrl + "/oauth/check_token?token=" + localStorage.getItem('token'), roleRequestOptions)
             .then(response => { return response.json() })
-            .then(myJson => {
-                console.log(myJson);
-                return ;
-            })
-            .catch(error => console.error(error))
-            
+            .then(myJson => { return myJson })
+            .catch(error => { return error })
     }
 }
 

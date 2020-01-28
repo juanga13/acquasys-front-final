@@ -2,9 +2,9 @@ import {
     LOGIN,
     LOGIN_RESPONSE,
     LOGIN_ERROR,
-    REFRESH_TOKEN,
-    REFRESH_TOKEN_RESPONSE,
-    REFRESH_TOKEN_ERROR,
+    REFRESH_LOGIN,
+    REFRESH_LOGIN_RESPONSE,
+    REFRESH_LOGIN_ERROR,
     LOGOUT
 } from './session.actions'
 import requestStates from '../../utils/requestStates'
@@ -42,26 +42,12 @@ const sessionReducer = (state = initialState, action) => {
             }
 
         /* Refresh token */
-        case REFRESH_TOKEN:
+        case REFRESH_LOGIN:
             return {
                 ...state,
                 refreshTokenStatus: requestStates.LOADING,
             }
-        case REFRESH_TOKEN_RESPONSE:
-            return {
-                ...state,
-                isLoggedIn: true,
-                refreshTokenResponse: action.response,
-                refreshTokenStatus: requestStates.SUCCESS,
-            }
-        case REFRESH_TOKEN_ERROR:
-            return {
-                ...state,
-                isLoggedIn: false,
-                refreshTokenResponse: action.response,
-                refreshTokenStatus: requestStates.ERROR,
-            }
-
+       
         /* Logout */
         case LOGOUT:
             return {

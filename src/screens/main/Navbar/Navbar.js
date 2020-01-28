@@ -9,11 +9,11 @@ class Navbar extends Component {
         return (
             <div className=''>
                 <Sticky>
-                    <Menu bordeless size='massive'>
-                        <Menu.Item as={NavLink} exact to='/'>
+                    <Menu borderless size='massive'>
+                        <Menu.Item as={NavLink} exact to='/' key='navlink-home'>
                             <Image />
                         </Menu.Item>
-                        <Menu.Menu position='right'>
+                        <Menu.Menu position='right' key='navlink-group'>
                             {this.props.isLoggedIn ? this.renderLoggedInItems() : this.renderNotLoggedInItems()}
                         </Menu.Menu>
                     </Menu>
@@ -24,10 +24,10 @@ class Navbar extends Component {
 
     renderLoggedInItems() {
         return ([
-            <Menu.Item as={NavLink} to='/profile'>
+            <Menu.Item as={NavLink} to='/profile' key='navlink-profile'>
                 Profile
             </Menu.Item>,
-            <Menu.Item as={Button} onClick={this.props.logout}>
+            <Menu.Item as={Button} onClick={this.props.logout} key='navlink-logout'>
                 Logout
             </Menu.Item>,
         ])
