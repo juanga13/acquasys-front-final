@@ -9,6 +9,8 @@ import { connect } from 'react-redux'
 import Profile from './admin/Profile/Profile'
 import requestStates from '../utils/requestStates'
 import NoMatch from './common/NoMatch'
+import News from './main/News/News'
+import Contact from './main/Contact/Contact'
 
 class Routes extends Component {
     componentDidMount() {
@@ -45,7 +47,10 @@ class Routes extends Component {
                 <div className='routes-container'>
                     <Switch>
                         <Route exact path='/' component={Home}/>
+                        <Route path='/news' component={News}/>
+                        <Route path='/contact' component={Contact}/>
                         <Route path='/login' component={Login}/>
+                        
                         <Route path="*" component={NoMatch}/>
                     </Switch>
                 </div>
