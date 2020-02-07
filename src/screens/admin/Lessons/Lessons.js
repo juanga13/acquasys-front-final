@@ -1,26 +1,46 @@
 import React, { Component } from 'react'
-import requestStates from '../../../utils/requestStates';
+import { NONE, LOADING, ERROR, SUCCESS } from '../../../utils/requestStates';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export class Lessons extends Component {
-    componentDidMount() {
-        this.props.getLessons();
-    }
-
+class Lessons extends Component {
+    
     render() {
         const { lessons, getLessonsStatus } = this.props;
-        return (
-            <div>
-                {getLessonsStatus === requestStates.SUCCESS && <div style={{margin: '10px', border: '1px solid gray'}}>
-                    <h3>Lessons</h3>
-                    <ul>
-                        <h5>Name, Surname</h5>
-                        {lessons.map((lesson) => (
-                        <li>{lesson.name + ', ' + lesson.surname}</li>
-                    ))}</ul>
-                </div>}
-            </div>
-        )
+        
+        switch (getLessonsStatus) {
+            case (NONE):
+                return <h1>none</h1>
+            case (LOADING):
+                return <h1>loading</h1>
+            case (ERROR):
+                return <h1>error</h1>
+            case (SUCCESS):
+                return (
+                    <div>
+                        <div style={{margin: '10px', border: '1px solid gray'}}>
+                            <h3>Lessons</h3>
+                            <ul>
+                                <h5>Name, Surname</h5>
+                                {lessons.map((lesson) => (
+                                <li>{lesson.name + ', ' + lesson.surname}</li>
+                            ))}</ul>
+                        </div>
+                    </div>
+                )
+            default:
+                return <h1>default</h1>
+        }
     }
 }
 
-export default Lessons
+const mapStateToProps = state => ({
+    lessons: state.admin.responseLessons,
+    getLessonsStatus: state.admin.getLessonsStatus,
+})
+
+const mapDispatchToProps = dispatch => ({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Lessons))

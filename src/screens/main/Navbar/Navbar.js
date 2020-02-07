@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
-import { Menu, Image, Button, Visibility, Sticky, Dropdown } from 'semantic-ui-react'
+import { Menu, Image, Button, Visibility, Sticky, Dropdown, Icon } from 'semantic-ui-react'
 import { NavLink, withRouter } from 'react-router-dom'
 import sessionActions from '../../session/session.actions'
 import { connect } from 'react-redux'
 import roles from '../../../utils/roles'
+import { brandLogo } from '../../../assets'
 
 class Navbar extends Component {
     render() {
         return (
             <div className=''>
                 <Sticky>
-                    <Menu borderless size='massive'>
+                    <Menu borderless style={{borderRadius: 0}}>
                         <Menu.Item as={NavLink} exact to='/' key='navlink-home'>
-                            <Image />
+                            <Image src={brandLogo} height='50px'/>
                         </Menu.Item>
-                        <Menu.Menu position='right' key='navlink-group'>
-                            {this.props.isLoggedIn ? this.renderLoggedInItems() : this.renderNotLoggedInItems()}
+                        <Menu.Menu key='navlink-left-group'>
+                            {this.props.isLoggedIn ? this.renderLoggedInItemsLeft() : null}
+                        </Menu.Menu>
+                        <Menu.Menu position='right' key='navlink-right-group'>
+                            {this.props.isLoggedIn ? this.renderLoggedInItemsRight() : this.renderNotLoggedInItems()}
                         </Menu.Menu>
                     </Menu>
                 </Sticky>
@@ -23,25 +27,34 @@ class Navbar extends Component {
         )        
     }
 
-    renderLoggedInItems() {
+    renderLoggedInItemsLeft() {
+        const role = localStorage.getItem('role')
+        if (role === roles.ADMIN) return ([
+            <Menu.Item as={NavLink} to='/dashboard' key='navlink-profile'>
+                <Icon name='th large'/>
+                Dashboard
+            </Menu.Item>,
+        ])
+        else return null
+    }
+
+    renderLoggedInItemsRight() {
         const role = localStorage.getItem('role');
         if (role === roles.ADMIN) return ([
-            <Menu.Item as={NavLink} to='/calendar' key='navlink-profile'>
-                Calendario
-            </Menu.Item>,
+            <Menu.Item as={NavLink} to='/calendar' key='navlink-profile'><Icon name='calendar'/>Calendario</Menu.Item>,
             <Dropdown item text='Admnistracion'>
-                <Menu.Menu>
-                    <Menu.Item as={NavLink} to='/students' key='navlink-students'>Alumnos</Menu.Item>
-                    <Menu.Item as={NavLink} to='/teachers' key='navlink-teachers'>Profesores</Menu.Item>
-                    <Menu.Item as={NavLink} to='/lessons' key='navlink-lessons'>Clases</Menu.Item>
-                    <Menu.Item as={NavLink} to='/payments' key='navlink-payments'>Pagos</Menu.Item>
-                </Menu.Menu>
+                <Dropdown.Menu>
+                    <Dropdown.Item as={NavLink} to='/students' key='navlink-students'><Icon name='child'/>Alumnos</Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to='/teachers' key='navlink-teachers'><Icon name='female'/>Profesores</Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to='/lessons' key='navlink-lessons'><Icon name='tablet'/>Clases</Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to='/payments' key='navlink-payments'><Icon name='wpforms'/>Pagos</Dropdown.Item>
+                </Dropdown.Menu>
             </Dropdown>,
-            <Dropdown item text='Mi cuenta' icon='user'>
-                <Menu.Menu>
-                    <Menu.Item as={NavLink} to='/profile' key='navlink-profile'>Mi perfil</Menu.Item>,
-                    <Menu.Item icon='sign-out' className='nav navlink' as={Button} onClick={this.props.logout} key='navlink-logout'>Cerrar sesión</Menu.Item>
-                </Menu.Menu>
+            <Dropdown item text='Mi cuenta'>
+                <Dropdown.Menu>
+                    <Dropdown.Item as={NavLink} to='/profile' key='navlink-profile'>Mi perfil</Dropdown.Item>
+                    <Dropdown.Item icon='sign-out' className='nav navlink' as={Button} onClick={this.props.logout} key='navlink-logout'>Cerrar sesión</Dropdown.Item>
+                </Dropdown.Menu>
             </Dropdown>,
         ]) 
         else if (role === roles.TEACHER) return ([
@@ -53,7 +66,7 @@ class Navbar extends Component {
                 Logout
             </Menu.Item>,
         ])
-        else if (role === roles.TEACHER) return ([
+        else if (role === roles.STUDENT) return ([
             
             <Menu.Item as={NavLink} to='/profile' key='navlink-profile'>
                 Profile
@@ -62,7 +75,7 @@ class Navbar extends Component {
                 Logout
             </Menu.Item>,
         ])
-        else if (role === roles.TEACHER) return ([
+        else if (role === roles.UNVERIFIED_STUDENT) return ([
             <Menu.Item as={NavLink} to='/profile' key='navlink-profile'>
                 Profile
             </Menu.Item>,
@@ -79,12 +92,12 @@ class Navbar extends Component {
 
     renderNotLoggedInItems() {
         return ([
-            <Menu.Item icon='newspaper' as={NavLink} to='/news'>Noticias</Menu.Item>,
-            <Menu.Item icon='address card' as={NavLink} to='/contact'>Contacto</Menu.Item>,
+            <Menu.Item icon='newspaper' as={NavLink} to='/news'>Noticias </Menu.Item>,
+            <Menu.Item icon='address card' as={NavLink} to='/contact'>Contacto </Menu.Item>,
             <Dropdown item icon='bars' text=''>
-                <Menu.Menu>
-                    <Menu.Item icon='sign-in' as={NavLink} to='/login'>Ingresar al sistema</Menu.Item>
-                </Menu.Menu>
+                <Dropdown.Menu>
+                    <Dropdown.Item as={NavLink} to='/login'><Icon name='sign-in'/>Ingresar al sistema</Dropdown.Item>
+                </Dropdown.Menu>
             </Dropdown>,
         ])
     }

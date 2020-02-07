@@ -4,5 +4,11 @@ const requestStates = {
     SUCCESS : 'success',    // request done, recieved response successfully
     ERROR   : 'error',      // request done, recieved response with error
 }
+const NONE = 'none';
+const LOADING = 'loading'; 
+const SUCCESS = 'success';
+const ERROR = 'error';
+
+export { NONE, LOADING, ERROR, SUCCESS };
 
 export default requestStates;

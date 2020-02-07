@@ -1,14 +1,52 @@
 html, body {
     height: 100%;
     width: 100%;
+    background: rgb(208, 232, 255);
 }
 
 p {
     .error {
         color: red;
     }
+
+    .title {
+        font-weight: bold;
+    }
 }
 
 .main {
     height: 100%;
+}
+
+.card {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border-radius: 15px;
+
+    .head {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        padding: 0 20px 15px;
+        width: 100%;
+        border-bottom: solid 1px #ccc; 
+        
+        .header {
+            margin: 0;
+            margin-right: 20px;
+        }
+    }
+
+    .body {
+        
+    }
+
+    .footer {
+
+    }
 }

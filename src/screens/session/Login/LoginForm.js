@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'semantic-ui-react';
-import Input from '../../common/Input';
+import Input from '../../common/Input/Input';
 import regex from '../../../utils/regex'
 
 const initialState = {

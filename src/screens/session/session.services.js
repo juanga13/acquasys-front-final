@@ -2,7 +2,6 @@ import { baseUrl } from '../../settings'
 
 const requests = {
     login: (email, password) => {
-        console.log('services session login');
         const tokenRequestOptions = { method: 'POST',
             mode: "cors", 
             headers: {
@@ -18,14 +17,16 @@ const requests = {
         };
         let tokenData = {token: '', role: ''}
         return fetch(baseUrl + '/oauth/token', tokenRequestOptions)
-            .then(res => {
-                if (res.ok) return res.json();
-                else throw (res.status)
-            })
+            .then(response => { return response.json() })
+            .catch(error => { throw error })
+            // get json and continue
             .then(myJson => {
                 tokenData.token = myJson.access_token;
                 return fetch(baseUrl + "/oauth/check_token?token=" + tokenData.token, roleRequestOptions)
-                    .then(response => { return response.json() }).then(myJson => {
+                    .then(response => { return response.json() })
+                    .catch(error => { throw error })
+                    
+                    .then(myJson => {
                         tokenData.role = myJson.authorities[0];
                         return tokenData;
                     })
@@ -34,16 +35,19 @@ const requests = {
     },
     
     checkToken: () => {
-        console.log('services refreshing token');
+        console.log('check token')
         const roleRequestOptions = {
             method: "GET",
             mode: "cors",
             cache: "no-cache"
         };
         return fetch(baseUrl + "/oauth/check_token?token=" + localStorage.getItem('token'), roleRequestOptions)
-            .then(response => { return response.json() })
-            .then(myJson => { return myJson })
-            .catch(error => { return error })
+            .then(response => {
+                if (response.ok) return response.json() 
+                else throw response.json()
+            })
+            .then(response => { return response })
+            .catch(error=> { throw error })
     }
 }
 

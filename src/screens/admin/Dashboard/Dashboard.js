@@ -1,27 +1,41 @@
 import React, { Component } from 'react'
-import { Segment, Image } from 'semantic-ui-react'
+import { Segment, Image, Header, Divider } from 'semantic-ui-react'
+import { NavLink } from 'react-router-dom'
+import './Dashboard.scss'
+import { brandLogo, students, teachers, lessons, payments } from '../../../assets/index'
 
-export class Dashboard extends Component {
+class Dashboard extends Component {
     render() {
         return (
             <div>
-                <h1>Dashboard</h1>
-                <Segment color='green'>
-                    <Segment><Image></Image></Segment>
-                    <Segment>Alumnos</Segment>
-                </Segment>
-                <Segment color='blue'>
-                    <Segment><Image></Image></Segment>
-                    <Segment>Profesores</Segment>
-                </Segment>
-                <Segment color='yellow'>
-                    <Segment><Image></Image></Segment>
-                    <Segment>Clases</Segment>
-                </Segment>
-                <Segment color='purple'>
-                    <Segment><Image></Image></Segment>
-                    <Segment>Pagos</Segment>
-                </Segment>
+                <Header as='h1'>Dashboard</Header>
+                <Divider/>
+                <div className='item-container'>
+                    <NavLink to='/students'>
+                        <Segment color='green' raised>
+                            <Image src={students} width='230px'/>
+                            <Header as='h4'>Alumnos</Header>
+                        </Segment>
+                    </NavLink>
+                    <NavLink to='/teachers'>
+                        <Segment color='blue' raised>
+                            <Image src={teachers} width='230px'/>
+                            <Header as='h4'>Profesores</Header>
+                        </Segment>
+                    </NavLink>
+                    <NavLink to='/lessons'>
+                        <Segment color='yellow' raised>
+                            <Image src={lessons} width='230px'/>
+                            <Header as='h4'>Clases</Header>
+                        </Segment>
+                    </NavLink>
+                    <NavLink to='/payments'>
+                        <Segment color='purple' raised>
+                            <Image src={payments} width='230px'/>
+                            <Header as='h4'>Pagos</Header>
+                        </Segment>
+                    </NavLink>
+                </div>
             </div>
         )
     }

@@ -19,7 +19,8 @@ import {
     GET_PAYMENTS_RESPONSE,
     GET_PAYMENTS_ERROR,
   } from './admin.actions'
-  import requestStates from '../../utils/requestStates'
+  import { NONE, LOADING, ERROR, SUCCESS } from '../../utils/requestStates'
+import { LOGOUT } from '../session/session.actions'
   
   const initialState = {
       responseProfile: null,
@@ -28,110 +29,44 @@ import {
       responseLessons: [],
       responsePayments: [],
 
-      getProfileStatus: requestStates.NONE,
-      getStudentsStatus: requestStates.NONE,
-      getTeachersStatus: requestStates.NONE,
-      getLessonsStatus: requestStates.NONE,
-      getPaymentsStatus: requestStates.NONE,
+      getProfileStatus: NONE,
+      getStudentsStatus: NONE,
+      getTeachersStatus: NONE,
+      getLessonsStatus: NONE,
+      getPaymentsStatus: NONE,
   }
   
   const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         
         /* Get profile */
-        case GET_PROFILE:
-            return {
-                ...state,
-                getProfileStatus: requestStates.LOADING,
-            }
-        case GET_PROFILE_RESPONSE:
-            return {
-                ...state,
-                responseProfile: action.response,
-                getProfileStatus: requestStates.SUCCESS,
-            }
-        case GET_PROFILE_ERROR:
-            return {
-                ...state,
-                responseProfile: action.response,
-                getProfileStatus: requestStates.ERROR,
-            }
+        case GET_PROFILE:           return { ...state, getProfileStatus: LOADING }
+        case GET_PROFILE_RESPONSE:  return { ...state, getProfileStatus: SUCCESS, responseProfile: action.response }
+        case GET_PROFILE_ERROR:     return { ...state, getProfileStatus: ERROR, responseProfile: action.response }
         
         /* Get students */
-        case GET_STUDENTS:
-            return {
-                ...state,
-                getStudentsStatus: requestStates.LOADING,
-            }
-        case GET_STUDENTS_RESPONSE:
-            return {
-                ...state,
-                responseStudents: action.response,
-                getStudentsStatus: requestStates.SUCCESS,
-            }
-        case GET_STUDENTS_ERROR:
-            return {
-                ...state,
-                responseStudents: action.response,
-                getStudentsStatus: requestStates.ERROR,
-            }
+        case GET_STUDENTS:          return { ...state, getStudentsStatus: LOADING }
+        case GET_STUDENTS_RESPONSE: return { ...state, getStudentsStatus: SUCCESS, responseStudents: action.response }
+        case GET_STUDENTS_ERROR:    return { ...state, getStudentsStatus: ERROR, responseStudents: action.response }
         
         /* Get teachers */
-        case GET_TEACHERS:
-            return {
-                ...state,
-                getTeachersStatus: requestStates.LOADING,
-            }
-        case GET_TEACHERS_RESPONSE:
-            return {
-                ...state,
-                responseTeachers: action.response,
-                getTeachersStatus: requestStates.SUCCESS,
-            }
-        case GET_TEACHERS_ERROR:
-            return {
-                ...state,
-                responseTeachers: action.response,
-                getTeachersStatus: requestStates.ERROR,
-            }
+        case GET_TEACHERS:          return { ...state, getTeachersStatus: LOADING }
+        case GET_TEACHERS_RESPONSE: return { ...state, getTeachersStatus: SUCCESS, responseTeachers: action.response }
+        case GET_TEACHERS_ERROR:    return { ...state, getTeachersStatus: ERROR, responseTeachers: action.response }
         
         /* Get lessons */
-        case GET_LESSONS:
-            return {
-                ...state,
-                getLessonsStatus: requestStates.LOADING,
-            }
-        case GET_LESSONS_RESPONSE:
-            return {
-                ...state,
-                responseLessons: action.response,
-                getLessonsStatus: requestStates.SUCCESS,
-            }
-        case GET_LESSONS_ERROR:
-            return {
-                ...state,
-                responseLessons: action.response,
-                getLessonsStatus: requestStates.ERROR,
-            }
+        case GET_LESSONS:           return { ...state, getLessonsStatus: LOADING }
+        case GET_LESSONS_RESPONSE:  return { ...state, getLessonsStatus: SUCCESS, responseLessons: action.response }
+        case GET_LESSONS_ERROR:     return { ...state, getLessonsStatus: ERROR, responseLessons: action.response }
         
         /* Get payments */
-        case GET_PAYMENTS:
-            return {
-                ...state,
-                getPaymentsStatus: requestStates.LOADING,
-            }
-        case GET_PAYMENTS_RESPONSE:
-            return {
-                ...state,
-                responsePayments: action.response,
-                getPaymentsStatus: requestStates.SUCCESS,
-            }
-        case GET_PAYMENTS_ERROR:
-            return {
-                ...state,
-                responsePayments: action.response,
-                getPaymentsStatus: requestStates.ERROR,
-            }
+        case GET_PAYMENTS:          return { ...state, getPaymentsStatus: LOADING }
+        case GET_PAYMENTS_RESPONSE: return { ...state, getPaymentsStatus: SUCCESS, responsePayments: action.response }
+        case GET_PAYMENTS_ERROR:    return { ...state, getPaymentsStatus: ERROR, responsePayments: action.response }
+            
+        /* Logout */
+        case LOGOUT:                return initialState
+
       default:
         return state
     }

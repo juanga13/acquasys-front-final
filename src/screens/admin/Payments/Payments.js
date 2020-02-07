@@ -1,26 +1,47 @@
 import React, { Component } from 'react'
-import requestStates from '../../../utils/requestStates';
+import { NONE, LOADING, ERROR, SUCCESS } from '../../../utils/requestStates';
+import adminActions from '../admin.actions';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export class Payments extends Component {
-    componentDidMount() {
-        this.props.getPayments();
-    }
+class Payments extends Component {
 
     render() {
         const { payments, getPaymentsStatus } = this.props;
-        return (
-            <div>
-                {getPaymentsStatus === requestStates.SUCCESS && <div style={{margin: '10px', border: '1px solid gray'}}>
-                    <h3>Payments</h3>
-                    <ul>
-                        <h5>Name, Surname</h5>
-                        {payments.map((payment) => (
-                        <li>{payment.name + ', ' + payment.surname}</li>
-                    ))}</ul>
-                </div>}
-            </div>
-        )
+        
+        switch (getPaymentsStatus) {
+            case (NONE):
+                return <h1>none</h1>
+            case (LOADING):
+                return <h1>loading</h1>
+            case (ERROR):
+                return <h1>error</h1>
+            case (SUCCESS):
+                return (
+                    <div>
+                        <div style={{margin: '10px', border: '1px solid gray'}}>
+                            <h3>Payments</h3>
+                            <ul>
+                                <h5>Name, Surname</h5>
+                                {payments.map((payment) => (
+                                <li>{payment.name + ', ' + payment.surname}</li>
+                            ))}</ul>
+                        </div>}
+                    </div>
+                )
+            default:
+                return <h1>default</h1>
+        }
     }
 }
 
-export default Payments
+const mapStateToProps = state => ({
+    payments: state.admin.responsePayments,
+    getPaymentsStatus: state.admin.getPaymentsStatus,
+})
+
+const mapDispatchToProps = dispatch => ({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Payments))

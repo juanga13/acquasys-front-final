@@ -7,6 +7,7 @@ class Home extends Component {
     render() {
         return (
             <div>
+                <h2>Home page, news and shit</h2>
                 {this.renderWelcomeText()}    
             </div>
         )
@@ -14,8 +15,8 @@ class Home extends Component {
 
     renderWelcomeText() {
         if (this.props.isLoggedIn) {
-            return <h1>{'Welcome ' + this.props.user + '!'}</h1>
-        } else return <h1>Welcome, you are not logged in yet.</h1>
+            return <p>{'Welcome ' + this.props.user.name + '!'}</p>
+        } else return <p>Welcome, you are not logged in yet.</p>
     }
 }
 

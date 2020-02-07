@@ -11,12 +11,10 @@ const requests = {
             cache: "no-cache",
         };
         return fetch(baseUrl + "/api/user/data", requestOptions)
-            .then(response => { 
-                console.log(response)
-                return response.json() })
-            .catch(error => { 
-                console.error(error)
-                return error })
+            .then(response => {
+                if (response.ok) return response.json()
+                else throw response.json()
+            })
     },
     
     getStudents: () => {
@@ -30,12 +28,10 @@ const requests = {
             }
         };
         return fetch(baseUrl + "/api/student/all", requestOptions)
-            .then(response => { 
-                console.log(response)
-                return response.json() })
-            .catch(error => { 
-                console.error(error)
-                return error })
+            .then(response => {
+                if (response.ok) return response.json()
+                else throw response.json()
+            })
     },
 
     getTeachers: () => {
@@ -49,12 +45,10 @@ const requests = {
             }
         };
         return fetch(baseUrl + "/api/teacher/all", requestOptions)
-            .then(response => { 
-                console.log(response)
-                return response.json() })
-            .catch(error => { 
-                console.error(error)
-                return error })
+            .then(response => {
+                if (response.ok) return response.json()
+                else throw response.json()
+            })
     },
     
     getLessons: () => {
@@ -68,12 +62,10 @@ const requests = {
             }
         };
         return fetch(baseUrl + "/api/lesson/all", requestOptions)
-            .then(response => { 
-                console.log(response)
-                return response.json() })
-            .catch(error => { 
-                console.error(error)
-                return error })
+            .then(response => {
+                if (response.ok) return response.json()
+                else throw response.json()
+            })
     },
     
     getPayments: () => {
@@ -87,12 +79,10 @@ const requests = {
             }
         };
         return fetch(baseUrl + "/payment/payments", requestOptions)
-            .then(response => { 
-                console.log(response)
-                return response.json() })
-            .catch(error => { 
-                console.error(error)
-                return error })
+            .then(response => {
+                if (response.ok) return response.json()
+                else throw response.json()
+            })
     },
 }
 

@@ -1,0 +1,37 @@
+.image-container  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px !important;
+    width: 250px;
+    max-height: 230px;
+
+    input {
+        border: none !important; 
+        width: 100%;
+        margin-top: 15px;
+    }
+}
+
+// form
+
+.field {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+
+    p {
+        display: flex;
+        margin: 0;
+        margin-right: 10px;
+        flex-grow: 2;
+    }
+
+    .field {
+        max-width: 300px;
+    }
+}

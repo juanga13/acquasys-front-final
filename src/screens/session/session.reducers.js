@@ -2,9 +2,9 @@ import {
     LOGIN,
     LOGIN_RESPONSE,
     LOGIN_ERROR,
-    REFRESH_LOGIN,
-    REFRESH_LOGIN_RESPONSE,
-    REFRESH_LOGIN_ERROR,
+    REFRESH_TOKEN,
+    REFRESH_TOKEN_RESPONSE,
+    REFRESH_TOKEN_ERROR,
     LOGOUT
 } from './session.actions'
 import requestStates from '../../utils/requestStates'
@@ -14,8 +14,8 @@ const initialState = {
     loginResponse: null,
     loginStatus: requestStates.NONE,
 
-    refreshTokenResponse: null,
-    refreshTokenStatus: requestStates.NONE,
+    refreshResponse: null,
+    refreshStatus: requestStates.NONE,
 }
 
 const sessionReducer = (state = initialState, action) => {
@@ -25,7 +25,10 @@ const sessionReducer = (state = initialState, action) => {
         case LOGIN:
             return {
                 ...state,
+                isLoggedIn: false,
                 loginStatus: requestStates.LOADING,
+                refreshResponse: null,
+                refreshStatus: requestStates.NONE,
             }
         case LOGIN_RESPONSE:
             return {
@@ -37,24 +40,36 @@ const sessionReducer = (state = initialState, action) => {
         case LOGIN_ERROR:
             return {
                 ...state,
+                isLoggedIn: false,
                 loginResponse: action.response,
                 loginStatus: requestStates.ERROR,
             }
 
         /* Refresh token */
-        case REFRESH_LOGIN:
-            return {
-                ...state,
-                refreshTokenStatus: requestStates.LOADING,
-            }
-       
-        /* Logout */
-        case LOGOUT:
+        case REFRESH_TOKEN:
             return {
                 ...state,
                 isLoggedIn: false,
-                loginStatus: requestStates.NONE,
+                refreshStatus: requestStates.LOADING,
             }
+        case REFRESH_TOKEN_RESPONSE:
+            return {
+                ...state,
+                isLoggedIn: true,
+                refreshResponse: action.response,
+                refreshStatus: requestStates.SUCCESS,
+            }
+        case REFRESH_TOKEN_ERROR:
+            return {
+                ...state,
+                isLoggedIn: false,
+                refreshResponse: action.response,
+                refreshStatus: requestStates.ERROR,
+            }
+        
+        /* Logout */
+        case LOGOUT:
+            return initialState
 
         default:
             return state
