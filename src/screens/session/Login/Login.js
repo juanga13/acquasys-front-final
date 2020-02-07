@@ -14,14 +14,13 @@ class Login extends Component {
     }
 
     render() {
-        console.log('rendering login')
+        const { loginStatus, loginResponse } = this.props
         return (
             <div className='login-form'>
                 <Segment size='big'>
                     <Header dividing>Ingrese al sistema</Header>
-                    {this.props.loginStatus === requestStates.ERROR && <Message error content='Hubo un error al enviar el formulario.'/>}
-                    {/* <h1>{}</h1> */}
-                    <LoginForm onSubmit={this.handleLogin} loading={this.props.loginStatus === requestStates.LOADING}/> 
+                    {loginStatus === requestStates.ERROR && <Message error content={'Hubo un error al enviar el formulario (' + loginResponse + ')'}/>}
+                    <LoginForm onSubmit={this.handleLogin} loading={loginStatus === requestStates.LOADING}/> 
                 </Segment>
             </div>
         )
@@ -31,7 +30,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
     loginStatus: state.session.loginStatus,
-    response: state.session.response,
+    loginResponse: state.session.loginResponse,
 })
 
 const mapDispatchToProps = (dispatch) => ({
