@@ -13,6 +13,9 @@ export const GET_LESSONS_ERROR = 'GET_LESSONS_ERROR'
 export const GET_PAYMENTS = 'GET_PAYMENTS'
 export const GET_PAYMENTS_RESPONSE = 'GET_PAYMENTS_RESPONSE'
 export const GET_PAYMENTS_ERROR = 'GET_PAYMENTS_ERROR'
+export const GET_CALENDAR = 'GET_CALENDAR'
+export const GET_CALENDAR_RESPONSE = 'GET_CALENDAR_RESPONSE'
+export const GET_CALENDAR_ERROR = 'GET_CALENDAR_ERROR'
 
 const adminActions = {
     getProfile: () => ({type: GET_PROFILE}),
@@ -34,6 +37,10 @@ const adminActions = {
     getPayments: () => ({type: GET_PAYMENTS}),
     getPaymentsResponse: (data) => ({type: GET_PAYMENTS_RESPONSE, response: data}),
     getPaymentsError: (error) => ({type: GET_PAYMENTS_ERROR, response: error}),
+
+    getCalendar: (startDate, endDate) => ({type: GET_CALENDAR, startDate, endDate}),
+    getCalendarResponse: (data) => ({type: GET_CALENDAR_RESPONSE, response: data}),
+    getCalendarError: (error) => ({type: GET_CALENDAR_ERROR, response: error}),
 
 }
 

@@ -18,6 +18,10 @@ import {
     GET_PAYMENTS,
     GET_PAYMENTS_RESPONSE,
     GET_PAYMENTS_ERROR,
+
+    GET_CALENDAR,
+    GET_CALENDAR_ERROR,
+    GET_CALENDAR_RESPONSE,
   } from './admin.actions'
   import { NONE, LOADING, ERROR, SUCCESS } from '../../utils/requestStates'
 import { LOGOUT } from '../session/session.actions'
@@ -28,12 +32,14 @@ import { LOGOUT } from '../session/session.actions'
       responseTeachers: [],
       responseLessons: [],
       responsePayments: [],
+      responseCalendar: [],
 
       getProfileStatus: NONE,
       getStudentsStatus: NONE,
       getTeachersStatus: NONE,
       getLessonsStatus: NONE,
       getPaymentsStatus: NONE,
+      getCalendarStatus: NONE,
   }
   
   const sessionReducer = (state = initialState, action) => {
@@ -63,7 +69,12 @@ import { LOGOUT } from '../session/session.actions'
         case GET_PAYMENTS:          return { ...state, getPaymentsStatus: LOADING }
         case GET_PAYMENTS_RESPONSE: return { ...state, getPaymentsStatus: SUCCESS, responsePayments: action.response }
         case GET_PAYMENTS_ERROR:    return { ...state, getPaymentsStatus: ERROR, responsePayments: action.response }
-            
+
+        /* Get calendar */
+        case GET_CALENDAR:          return { ...state, getCalendarStatus: LOADING }
+        case GET_CALENDAR_RESPONSE: return { ...state, getCalendarStatus: SUCCESS, responseCalendar: action.response }
+        case GET_CALENDAR_ERROR:    return { ...state, getCalendarStatus: ERROR, responseCalendar: action.response }
+
         /* Logout */
         case LOGOUT:                return initialState
 

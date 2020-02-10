@@ -4,6 +4,7 @@ import adminActions, {
     GET_TEACHERS,
     GET_LESSONS,
     GET_PAYMENTS,
+    GET_CALENDAR,
 } from './admin.actions'
 import requests from './admin.services'
 import { push } from 'connected-react-router'
@@ -39,6 +40,12 @@ const adminMiddleware = ({dispatch, getState}) => next => action => {
             requests.getPayments()
                 .then(data => { dispatch(adminActions.getPaymentsResponse(data)) })
                 .catch(error => { dispatch(adminActions.getPaymentsError(error)) })
+            break;
+
+        case GET_CALENDAR:
+            requests.getCalendar(action.startDate,action.endDate)
+                .then(data => { dispatch(adminActions.getCalendarResponse(data))})
+                .catch((error => {dispatch(adminActions.getCalendarError(error))}))
             break;
         default:
             break;

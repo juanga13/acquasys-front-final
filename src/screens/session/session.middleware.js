@@ -7,6 +7,7 @@ import requests from './session.services'
 import { push } from 'connected-react-router'
 import roles from '../../utils/roles';
 import adminActions from '../admin/admin.actions';
+import {tenDaysBeforeNow} from "../../utils/dates";
 
 const sessionMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
@@ -24,6 +25,7 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                         dispatch(adminActions.getTeachers())
                         dispatch(adminActions.getLessons())
                         dispatch(adminActions.getPayments())
+                        dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
                     dispatch(push('/profile'));
                 })
@@ -38,6 +40,7 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                         dispatch(adminActions.getTeachers())
                         dispatch(adminActions.getLessons())
                         dispatch(adminActions.getPayments())
+                        dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
                     dispatch(sessionActions.refreshTokenResponse(data))})
                 .catch(error => { 

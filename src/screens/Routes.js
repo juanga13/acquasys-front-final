@@ -9,7 +9,7 @@ import './Routes.scss'
 // component screens
 import { Contact, Home, Navbar, News } from './main/index.main'
 import { Login } from './session/index.session'
-import { Calendar, Dashboard, Lessons, Payments, Profile, Students, Teachers } from './admin/index.admin'
+import { AdminCalendar, Dashboard, Lessons, Payments, Profile, Students, Teachers } from './admin/index.admin'
 import { NoMatch } from './common/index.common' 
 // utils
 import requestStates from '../utils/requestStates'
@@ -44,7 +44,7 @@ class Routes extends Component {
                     <Switch>
                         <Route exact path='/' component={Home}/>
                         <Route path='/dashboard' component={Dashboard}/>
-                        <Route path='/calendar' component={Calendar}/>
+                        <Route path='/calendar' component={AdminCalendar}/>
                         <Route path='/students' component={Students}/>
                         <Route path='/teachers' component={Teachers}/>
                         <Route path='/lessons' component={Lessons}/>
