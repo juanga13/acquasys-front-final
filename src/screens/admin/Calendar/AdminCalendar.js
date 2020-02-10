@@ -5,11 +5,15 @@ import {ERROR, LOADING, NONE, SUCCESS} from "../../../utils/requestStates";
 import Calendar from "../../common/calendar/Calendar";
 
 class AdminCalendar extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentLesson: {id: 0, name: "error"},
+            showModal: false
+        }
+    }
     render() {
         const { responseCalendar, getCalendarStatus, responseLessons } = this.props;
-        const [currentLesson, setCurrentLesson] = useState();
-        const [showModal, setShowModal] = useState(false);
 
         switch (getCalendarStatus) {
             case (NONE):
@@ -24,8 +28,10 @@ class AdminCalendar extends Component {
                         <div style={{margin: '10px', border: '1px solid gray'}}>
                             <h3>Calendar</h3>
                             <Calendar calendarEvents={responseCalendar} handleEventClick={(info) => {
-                                 setCurrentLesson(responseLessons.find(x => x.id === info.event._def.extendedProps.lessonId));
-                                 setShowModal(true);
+                                 this.setState({
+                                     currentLesson: responseLessons.find(x => x.id === info.event._def.extendedProps.lessonId),
+                                     showModal: true
+                                 });
                             } }/>
                         </div>
                     </div>
