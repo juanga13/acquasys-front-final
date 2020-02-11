@@ -23,7 +23,14 @@ const Input = props => {
                 {/* TODO: dropdown goes here */}
             </Form.Field>
         ) 
-    } else {
+    } else if (props.type === 'weekdays') {
+        return (
+            <Form.Field key={props.key}>
+                {props.title && <p style={{fontWeight: 'bold'}}>{props.title}</p>}
+                {/* IDK */}
+            </Form.Field>
+        )
+    }else {
         return (
             <Form.Field key={props.key}>
                 {props.title && <p style={{fontWeight: 'bold'}}>{props.title}</p>}

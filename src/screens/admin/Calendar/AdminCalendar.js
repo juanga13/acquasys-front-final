@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {ERROR, LOADING, NONE, SUCCESS} from "../../../utils/requestStates";
 import Calendar from "../../common/calendar/Calendar";
+import LessonModal from "../Lessons/Modals/LessonModal";
+import adminActions from "../admin.actions";
 
 class AdminCalendar extends Component {
     constructor(props) {
@@ -13,7 +15,7 @@ class AdminCalendar extends Component {
         }
     }
     render() {
-        const { responseCalendar, getCalendarStatus, responseLessons } = this.props;
+        const { responseCalendar, getCalendarStatus, responseLessons, editLesson} = this.props;
 
         switch (getCalendarStatus) {
             case (NONE):
@@ -25,6 +27,10 @@ class AdminCalendar extends Component {
             case (SUCCESS):
                 return (
                     <div>
+                        <LessonModal data={this.state.currentLesson} isOpen={this.state.showModal}
+                                     onClose={() => { this.setState({showModal: false})}}
+                                     onSubmit={() => {editLesson(this.state.currentLesson)}}
+                                     />
                         <div style={{margin: '10px', border: '1px solid gray'}}>
                             <h3>Calendar</h3>
                             <Calendar calendarEvents={responseCalendar} handleEventClick={(info) => {
@@ -50,8 +56,8 @@ const mapStateToProps = state => ({
     responseLessons: state.admin.responseLessons,
 })
 
-const mapDispatchToProps = dispatch => ({
-
+const mapDispatchToProps = (dispatch) => ({
+    editLesson: (lesson) => dispatch(adminActions.editLesson(lesson)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AdminCalendar))

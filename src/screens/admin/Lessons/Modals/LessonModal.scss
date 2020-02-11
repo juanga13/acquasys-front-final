@@ -1,0 +1,22 @@
+// form
+
+.field {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+
+    p {
+        display: flex;
+        margin: 0;
+        margin-right: 10px;
+        flex-grow: 2;
+    }
+
+    .field {
+        max-width: 300px;
+    }
+}

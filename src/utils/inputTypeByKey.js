@@ -28,7 +28,9 @@ const getInputType = (key) => {
             return 'boolean';  // special type managed in Input
         case 'inscriptionDate':
             return 'date';  // special type managed in Input
-        
+        case 'weekdays':
+            return 'weekdays';
+
         default:
             /*
             All 'name' input types are:

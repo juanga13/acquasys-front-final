@@ -2,19 +2,19 @@ import {
     GET_PROFILE,
     GET_PROFILE_RESPONSE,
     GET_PROFILE_ERROR,
-    
+
     GET_STUDENTS,
     GET_STUDENTS_RESPONSE,
     GET_STUDENTS_ERROR,
-    
+
     GET_TEACHERS,
     GET_TEACHERS_RESPONSE,
     GET_TEACHERS_ERROR,
-    
+
     GET_LESSONS,
     GET_LESSONS_RESPONSE,
     GET_LESSONS_ERROR,
-    
+
     GET_PAYMENTS,
     GET_PAYMENTS_RESPONSE,
     GET_PAYMENTS_ERROR,
@@ -22,7 +22,11 @@ import {
     GET_CALENDAR,
     GET_CALENDAR_ERROR,
     GET_CALENDAR_RESPONSE,
-  } from './admin.actions'
+
+    EDIT_LESSON,
+    EDIT_LESSON_RESPONSE,
+    EDIT_LESSON_ERROR,
+} from './admin.actions'
   import { NONE, LOADING, ERROR, SUCCESS } from '../../utils/requestStates'
 import { LOGOUT } from '../session/session.actions'
   
@@ -33,6 +37,7 @@ import { LOGOUT } from '../session/session.actions'
       responseLessons: [],
       responsePayments: [],
       responseCalendar: [],
+      responseEditLesson: null,
 
       getProfileStatus: NONE,
       getStudentsStatus: NONE,
@@ -40,6 +45,7 @@ import { LOGOUT } from '../session/session.actions'
       getLessonsStatus: NONE,
       getPaymentsStatus: NONE,
       getCalendarStatus: NONE,
+      editLessonStatus: NONE,
   }
   
   const sessionReducer = (state = initialState, action) => {
@@ -74,6 +80,11 @@ import { LOGOUT } from '../session/session.actions'
         case GET_CALENDAR:          return { ...state, getCalendarStatus: LOADING }
         case GET_CALENDAR_RESPONSE: return { ...state, getCalendarStatus: SUCCESS, responseCalendar: action.response }
         case GET_CALENDAR_ERROR:    return { ...state, getCalendarStatus: ERROR, responseCalendar: action.response }
+
+        /*edit lesson*/
+        case EDIT_LESSON:          return { ...state, editLessonStatus: LOADING }
+        case EDIT_LESSON_RESPONSE: return { ...state, editLessonStatus: SUCCESS, responseEditLesson: action.response }
+        case EDIT_LESSON_ERROR:    return { ...state, editLessonStatus: ERROR, responseEditLesson: action.response }
 
         /* Logout */
         case LOGOUT:                return initialState

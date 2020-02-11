@@ -84,6 +84,24 @@ const requests = {
                 else throw response.json()
             })
     },
+
+    editLesson: (lesson) => {
+        const requestOptions = {
+            method: "PUT",
+            mode: "cors",
+            credentials: "same-origin",
+            body: lesson,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        };
+        return fetch(baseUrl + "/api/lesson/", requestOptions)
+            .then(response => {
+                if (response.ok) return response.json()
+                else throw response.json()
+            })
+    },
     
     getPayments: () => {
         const requestOptions = {

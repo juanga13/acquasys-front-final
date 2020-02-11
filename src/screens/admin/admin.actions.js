@@ -16,6 +16,9 @@ export const GET_PAYMENTS_ERROR = 'GET_PAYMENTS_ERROR'
 export const GET_CALENDAR = 'GET_CALENDAR'
 export const GET_CALENDAR_RESPONSE = 'GET_CALENDAR_RESPONSE'
 export const GET_CALENDAR_ERROR = 'GET_CALENDAR_ERROR'
+export const EDIT_LESSON = 'EDIT_LESSON'
+export const EDIT_LESSON_RESPONSE = 'EDIT_LESSON_RESPONSE'
+export const EDIT_LESSON_ERROR = 'EDIT_LESSON_ERROR'
 
 const adminActions = {
     getProfile: () => ({type: GET_PROFILE}),
@@ -42,6 +45,9 @@ const adminActions = {
     getCalendarResponse: (data) => ({type: GET_CALENDAR_RESPONSE, response: data}),
     getCalendarError: (error) => ({type: GET_CALENDAR_ERROR, response: error}),
 
+    editLesson: (lesson) => ({type: EDIT_LESSON, lesson}),
+    editLessonResponse: (data) => ({type: EDIT_LESSON_RESPONSE, response: data}),
+    editLessonError: (error) => ({type: EDIT_LESSON_ERROR, response: error})
 }
 
 export default adminActions
