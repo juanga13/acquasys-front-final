@@ -5,6 +5,7 @@ import { CardHeader, Card, CardContent } from 'semantic-ui-react'
 
 class Home extends Component {
     render() {
+        console.log(this.props)
         return (
             <div>
                 <h2>Home page, news and shit</h2>

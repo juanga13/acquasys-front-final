@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import sessionActions from '../session.actions'
+import sessionActions from '../actions'
 import { withRouter } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { Header, Message, Segment } from 'semantic-ui-react';
-import requestStates from '../../../utils/requestStates';
+import { LOADING, ERROR } from '../../../utils/requestStates';
 import './Login.scss'
 
 class Login extends Component {
@@ -19,8 +19,8 @@ class Login extends Component {
             <div className='login-form'>
                 <Segment size='big'>
                     <Header dividing>Ingrese al sistema</Header>
-                    {loginStatus === requestStates.ERROR && <Message error content={'Hubo un error al enviar el formulario (' + loginResponse + ')'}/>}
-                    <LoginForm onSubmit={this.handleLogin} loading={loginStatus === requestStates.LOADING}/> 
+                    {loginStatus === ERROR && <Message error content={'Hubo un error al enviar el formulario (' + loginResponse + ')'}/>}
+                    <LoginForm onSubmit={this.handleLogin} loading={loginStatus === LOADING}/> 
                 </Segment>
             </div>
         )

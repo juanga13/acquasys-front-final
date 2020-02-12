@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Image, Button, Visibility, Sticky, Dropdown, Icon } from 'semantic-ui-react'
 import { NavLink, withRouter } from 'react-router-dom'
-import sessionActions from '../../session/session.actions'
+import sessionActions from '../../session/actions'
 import { connect } from 'react-redux'
 import roles from '../../../utils/roles'
 import { brandLogo } from '../../../assets'

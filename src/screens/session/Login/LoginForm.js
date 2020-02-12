@@ -18,13 +18,11 @@ class LoginForm extends Component {
     state = initialState;
 
     _verifyForm() {
-        console.log('verify form')
         const { email, password } = this.state.values;
         const errors = {
             email: !regex.email.test(email),
             password: password.length < 4,  // TODO: password regex
         }
-        console.log(Object.values(errors))
         if (Object.values(errors).every((value) => !value)) {
             this.setState({...this.state, errors: initialState.errors})
             return true; 
@@ -45,6 +43,7 @@ class LoginForm extends Component {
             const { email, password } = this.state.values;
             this.props.onSubmit({email, password});
         } else {
+        
         }
     }
 

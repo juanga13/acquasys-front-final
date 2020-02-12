@@ -48,7 +48,7 @@ class MyTable extends Component {
                                 key={'header-' + key}
                                 sorted={sortingColumn === key ? direction : null}
                                 onClick={this.handleSort(key)}
-                            >{key}</Table.HeaderCell>
+                            >{I18n.t('components.table.title.' + key)}</Table.HeaderCell>
                         )).concat(<Table.HeaderCell key={'header-actions'} colSpan='3'>Acciones</Table.HeaderCell>)}
                     </Table.Row>
                     </Table.Header>
@@ -66,7 +66,7 @@ class MyTable extends Component {
                                                 onClick={() => action(item)}>
                                                 
                                                 <Icon name={type}/>
-                                                {I18n.t('components.table.' + type)}
+                                                {I18n.t('components.table.cells.' + type)}
                                             </Button>
                                         ))}
                                     </Table.Cell>

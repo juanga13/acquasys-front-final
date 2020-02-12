@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NONE, LOADING, ERROR, SUCCESS } from '../../../utils/requestStates';
-import adminActions from '../admin.actions';
+import adminActions from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -36,7 +36,7 @@ class Payments extends Component {
 }
 
 const mapStateToProps = state => ({
-    payments: state.admin.responsePayments,
+    payments: state.admin.payments,
     getPaymentsStatus: state.admin.getPaymentsStatus,
 })
 

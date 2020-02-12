@@ -1,19 +1,33 @@
 import React, { Component } from 'react'
-import adminActions from '../admin.actions';
+import adminActions from '../actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import requestStates from '../../../utils/requestStates';
-import { Header, Divider, Loader, Segment, Dropdown, Icon, Button, Form } from 'semantic-ui-react';
+import { LOADING, SUCCESS, ERROR } from '../../../utils/requestStates';
+import { Header, Divider, Loader, Segment, Button, Form, Grid } from 'semantic-ui-react';
+import Input from '../../common/Input/Input';
+import { I18n } from 'react-redux-i18n';
+import getInputType from '../../../utils/inputTypeByKey';
+import regex from '../../../utils/regex';
+import { ERROR_NOTIFICATION } from '../../../utils/typesOfNotification';
+import DataValuePair from '../../common/DataValuePair/DatValuePair';
+import './Profile.scss'
+
+const initialState = {
+    editing: false,
+    values: {
+        email: '',
+        name: '',
+        surname: '',
+    },
+    errors: {
+        email: '',
+        name: '',
+        surname: '',
+    }
+}
 
 class Profile extends Component {
-    state = {
-        editing: false,
-        values: {
-            name: '',
-            surname: '',
-            email: '',
-        }
-    }
+    state = initialState;
 
     componentDidMount() {
         this.props.getProfile();    
@@ -24,23 +38,44 @@ class Profile extends Component {
         this.setState({editing: true});
     }
 
+    validateForm() {
+        const { email, name, surname } = this.state.values;
+        const errors = {
+            email: !regex.email.test(email),
+            name: name.length < 0,
+            surname: surname.length < 4,
+        }
+        if (Object.values(errors).every((value) => !value)) {
+            this.setState({...this.state, errors: initialState.errors})
+            return true; 
+        } else {
+            this.setState({...this.state, errors: errors});
+            return false;  
+        }
+    }
+
     handleEditSubmit = e => {
         e.preventDefault();
-        this.setState({editing: false});
+        if (this.validateForm()) {
+            this.setState({editing: false});
+            this.props.notify(ERROR_NOTIFICATION, I18n.t('admin.profile.errors.generic'))
+        } else {
+
+        }
     }
 
     render() {
+        console.log(this.props)
         return (
             <div>
-                <Header as='h1'>Mi perfil</Header>
-                <Divider/>
+                
                 <div className='card'>
                     <div className='head'>
-                        <Header>Datos de mi cuenta</Header>
+                        <Header as='h1'>Mi perfil</Header>
                         <Button icon='edit' onClick={this.handleEdit}></Button>
                     </div>
-                    <div className='body'>
-                        {this.state.editing ? this.renderProfileDataForm() : this.renderProfileData()}
+                    <div className='body profile-grid'>
+                        {this.renderProfileData()}
                     </div>
                     <div className='footer'>
                         {this.state.editing ? <Button icon='tick'/> : null}
@@ -52,28 +87,42 @@ class Profile extends Component {
 
     renderProfileData() {
         const { getProfileStatus, profile } = this.props;
-        if (getProfileStatus === requestStates.LOADING) return <Loader/>
-        if (getProfileStatus === requestStates.ERROR) return <Segment error>Hubo un error</Segment>
-        if (getProfileStatus === requestStates.SUCCESS) return ([
-            <p>{'Email  : ' + profile.email}</p>,
-            <p>{'Name   : ' + profile.name}</p>,
-            <p>{'Surname: ' + profile.surname}</p>
-        ])
+        const { values, errors } = this.state;
+        if (getProfileStatus === LOADING) return <Loader/>
+        if (getProfileStatus === ERROR) return <Segment error>Hubo un error</Segment>
+        if (getProfileStatus === SUCCESS) {
+            if (this.state.editing) {
+                return (
+                    <Form onSubmit={this.handleEditSubmit}>
+                        {Object.keys(profile).map((key, id) => 
+                            <Input
+                                key={'admin-profile-form-input-' + key + '-' + id} 
+                                title={I18n.t(key) + ':'}
+                                id={key} 
+                                type={getInputType(key)} 
+                                value={values[key]} 
+                                placeholder={I18n.t('modal.fields.name.' + key)} 
+                                onChange={this.handleChange} 
+                                autoFocus={id === 0}
+                                error={errors[key]}/>
+                        )}
+                    </Form>
+                )
+            } else return (
+                <Grid>
+                    {Object.keys(profile).map((key, id) => (
+                        <DataValuePair name={I18n.t(key) + ':'} value={profile[key]}/>
+                    ))}
+                </Grid>
+            )
+        }
         else return <Loader/>
-    }
-
-    renderProfileDataForm() {
-        return (
-            <Form onSubmit={this.handleEditSubmit}>
-                <Form.Input>asd</Form.Input>
-            </Form>
-        )
     }
 }
 
 const mapStateToProps = state => ({
-    profile: state.admin.responseProfile,
-    getProfileStatus: state.admin.getProfileStatus,
+    profile: state.admin.main.profile,
+    getProfileStatus: state.admin.main.getProfileStatus,
 })
 
 const mapDispatchToProps = dispatch => ({

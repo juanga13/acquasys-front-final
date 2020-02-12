@@ -5,17 +5,21 @@ import { withRouter } from 'react-router-dom';
 import { Loader, Header, Button } from 'semantic-ui-react';
 import MyTable from '../../common/MyTable/MyTable'
 import { ModalPreview, ModalNew, ModalDelete } from './Modals/index';
+import { CLOSED, NEW, PREVIEW, EDIT, DELETE } from '../../../utils/modalStates';
+import adminStudentsActions from './actions'
 
-const modalStates = {CLOSED: 'CLOSED', NEW: 'NEW', PREVIEW: 'PREVIEW', EDIT: 'EDIT', DELETE: 'DELETE'};
 const initialState = {
-    modalState: modalStates.CLOSED,
-    data: [],
+    modalState: CLOSED,
+    selectedStudent: null,
 }
 
 class Students extends Component {
     state = initialState;
+
+    handleNew = e => {e.preventDefault(); this.setState({...this.state, modalState: NEW})};
     
     render() {
+        console.log(this.state)
         return (
             <div>
                 <div className='card'>
@@ -35,36 +39,15 @@ class Students extends Component {
         )
     }
     
-    // change state
-    handleNew       = ()        => this.setState({ ...this.state, modalState: modalStates.NEW,      data: []})
-    handlePreview   = itemData  => this.setState({ ...this.state, modalState: modalStates.PREVIEW,  data: itemData })
-    handleEdit      = ()        => this.setState({ ...this.state, modalState: modalStates.EDIT })
-    handleDelete    = itemData  => this.setState({ ...this.state, modalState: modalStates.DELETE,   data: itemData })
+    handlePreview   = data  => this.setState({ ...this.state, modalState: PREVIEW,  selectedStudent: data })
+    handleDelete    = data  => this.setState({ ...this.state, modalState: DELETE,   selectedStudent: data })
     
-    // upload 
-    handleNewStudentSubmit = e => {
-        e.preventDefault();
-        console.log('handle new student submit');
-    }
-    handleEditSubmit = e => { 
-        e.preventDefault();
-        console.log('handle edit submit');
-    }
-    handleDeleteConfirm = e => {
-        e.preventDefault();
-        console.log('handle delete confirm');
-    }
-
-    handleModalClose = e => { e.preventDefault(); this.setState(initialState); }
-
     renderTable() {
         const { students, getStudentsStatus } = this.props;
 
         switch (getStudentsStatus) {
-            case (NONE || LOADING):
-                return <Loader/>
-            case (ERROR):
-                return <div>There was an error with the data</div>
+            case (NONE || LOADING): return <Loader/>
+            case (ERROR): return <div>There was an error with the data</div>
             case (SUCCESS):
                 return (
                     <MyTable
@@ -76,33 +59,54 @@ class Students extends Component {
                         ]}
                     />
                 )
-            default:
-                return <h1>default</h1>
+
+            default: return <h1>default</h1>
         }
     }
 
-    // modal
+    handleModalClose = e => { e.preventDefault(); this.setState(initialState); }
+    handleEdit = e => { e.preventDefault(); this.setState({...this.state, modalState: EDIT})}
+
+    handleNewStudentSubmit = data => {
+        console.log('haro')
+        console.log(data)
+        const { modalState } = this.state;
+        if (modalState === NEW) this.props.createTeacher(data);
+        else this.props.updateTeacher(data);
+    }
 
     renderModals() {
-        const { modalState, data } = this.state;
-
+        const { modalState, selectedStudent } = this.state;
         return ([
-            <ModalPreview   data={data}         isOpen={modalState === modalStates.PREVIEW} onClose={this.handleModalClose} onEdit={this.handleEdit}/>,
-            <ModalNew                           isOpen={modalState === modalStates.NEW}     onClose={this.handleModalClose} onSubmit={this.handleNewStudentSubmit}/>,
-            // ModalNew with data renders an edition mode form.
-            <ModalNew       data={data}         isOpen={modalState === modalStates.EDIT}    onClose={this.handleModalClose} onSubmit={this.handleEditSubmit}/>,
-            <ModalDelete    data={data}         isOpen={modalState === modalStates.DELETE}  onClose={this.handleModalClose} onConfirm={this.handleDeleteConfirm}/>,
+            <ModalPreview   
+                isOpen={modalState === PREVIEW} 
+                onClose={this.handleModalClose} 
+                onEdit={this.handleEdit}
+                data={selectedStudent}/>,
+            // ModalNew with not null data is ModalEdit
+            <ModalNew    
+                isOpen={modalState === NEW || modalState === EDIT}    
+                onClose={this.handleModalClose} 
+                onSubmit={this.handleNewStudentSubmit}
+                data={selectedStudent}/>,
+            <ModalDelete    
+                isOpen={modalState === DELETE}  
+                onClose={this.handleModalClose} 
+                onConfirm={() => this.props.deleteStudent(selectedStudent.id)}
+                data={selectedStudent}/>,         
         ])
     }
 }
 
 const mapStateToProps = state => ({
-    students: state.admin.responseStudents,
-    getStudentsStatus: state.admin.getStudentsStatus,
+    students: state.admin.main.students,
+    getStudentsStatus: state.admin.main.getStudentsStatus,
 })
 
-const mapDispatchToProps = dispatch => ({
-
+const mapDispatchToProps = dispatch => ({    
+    createStudent: (data) => dispatch(adminStudentsActions.create(data)),
+    updateStudent: (data) => dispatch(adminStudentsActions.update(data)),
+    deleteStudent: (id) => dispatch(adminStudentsActions.delete(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Students))
