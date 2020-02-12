@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Image, Header, Button } from 'semantic-ui-react'
 import { I18n } from 'react-redux-i18n';
-import adminTeachersActions from '../actions';
+import adminTeachersActions from '../teachers.actions';
 import { CLOSED } from '../../../../utils/modalStates';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';

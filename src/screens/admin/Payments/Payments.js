@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NONE, LOADING, ERROR, SUCCESS } from '../../../utils/requestStates';
-import adminActions from '../actions';
+import adminActions from '../admin.actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 

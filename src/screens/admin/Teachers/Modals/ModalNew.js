@@ -4,7 +4,7 @@ import { dummyAvatar } from '../../../../assets/index'
 import './ModalNew.scss'
 import Input from '../../../common/Input/Input'
 import ModalNewForm from './ModalNewForm'
-import adminTeachersActions from '../actions'
+import adminTeachersActions from '../teachers.actions'
 import { CLOSED, NEW, EDIT } from '../../../../utils/modalStates'
 
 class ModalNew extends Component {

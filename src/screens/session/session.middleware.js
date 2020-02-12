@@ -31,6 +31,7 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                 })
                 .catch(error => dispatch(sessionActions.loginError(error)))
             break;
+            
         case REFRESH_TOKEN:
             requests.checkToken()
                 .then(data => { 
@@ -49,11 +50,13 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                     dispatch(sessionActions.refreshTokenError(error))
                 })
             break;
+
         case LOGOUT:
             delete localStorage['token'];
             delete localStorage['role'];
             dispatch(push('/'));
             break;
+
         default:
             break;
     }

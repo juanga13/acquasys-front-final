@@ -3,7 +3,7 @@ import { Loader, Header, Modal, Image, Button, Icon, Grid, Divider, GridRow, Men
 import { dummyAvatar } from '../../../../assets/index'
 import { I18n } from 'react-redux-i18n';
 import DataValuePair from '../../../common/DataValuePair/DatValuePair';
-import adminTeachersActions from '../actions';
+import adminTeachersActions from '../teachers.actions';
 import { CLOSED, EDIT, PREVIEW } from '../../../../utils/modalStates';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Image, Header, Button, Segment } from 'semantic-ui-react'
-import { dummyAvatar } from '../../../../assets/index'
+import { Modal, Button } from 'semantic-ui-react'
 import './LessonModal.scss'
 import LessonForm from "./LessonForm";
 

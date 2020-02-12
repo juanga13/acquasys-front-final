@@ -6,7 +6,7 @@ import { Loader, Header, Button } from 'semantic-ui-react';
 import MyTable from '../../common/MyTable/MyTable'
 import { ModalPreview, ModalNew, ModalDelete } from './Modals/index';
 import { CLOSED, NEW, PREVIEW, EDIT, DELETE } from '../../../utils/modalStates';
-import adminStudentsActions from './actions'
+import adminStudentsActions from './students.actions'
 
 const initialState = {
     modalState: CLOSED,
@@ -71,8 +71,18 @@ class Students extends Component {
         console.log('haro')
         console.log(data)
         const { modalState } = this.state;
-        if (modalState === NEW) this.props.createTeacher(data);
-        else this.props.updateTeacher(data);
+        if (modalState === NEW) {
+            console.log('creating new student')
+            this.props.createStudent(data);
+        } else {
+            console.log('updating student')
+            this.props.updateStudent(data);
+        }
+    }
+
+    handleDeleteStudentSubmit = id => {
+        console.log('deleting student')
+        this.props.deleteStudent(id)
     }
 
     renderModals() {
@@ -92,7 +102,7 @@ class Students extends Component {
             <ModalDelete    
                 isOpen={modalState === DELETE}  
                 onClose={this.handleModalClose} 
-                onConfirm={() => this.props.deleteStudent(selectedStudent.id)}
+                onConfirm={() => this.handleDeleteStudentSubmit(selectedStudent.id)}
                 data={selectedStudent}/>,         
         ])
     }

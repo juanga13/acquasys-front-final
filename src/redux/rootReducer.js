@@ -2,13 +2,13 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 // reducers
-import sessionReducer from '../screens/session/reducer'
+import sessionReducer from '../screens/session/session.reducer'
 
-import adminReducer from '../screens/admin/reducer'
-import adminStudentsReducer from '../screens/admin/Students/reducer'
-import adminTeachersReducer from '../screens/admin/Teachers/reducer'
-// import adminLessonsReducer from '../screens/admin/Lessons/reducer'
-// import adminPaymentsReducer from '../screens/admin/Payments/reducer'
+import adminReducer from '../screens/admin/admin.reducer'
+import adminStudentsReducer from '../screens/admin/Students/students.reducer'
+import adminTeachersReducer from '../screens/admin/Teachers/teachers.reducer'
+// import adminLessonsReducer from '../screens/admin/Lessons/lessons.reducer'
+// import adminPaymentsReducer from '../screens/admin/Payments/payments.reducer'
 
 // console.log('root reducer')
 const rootReducer = (history) => combineReducers({

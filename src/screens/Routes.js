@@ -8,11 +8,10 @@ import sessionActions from './session/session.actions'
 import './Routes.scss'
 // component screens
 import { Contact, Home, Navbar, News } from './main/index.main'
-import { Login } from './session/index.session'
+import Login from './session/Login/Login'
 import { AdminCalendar, Dashboard, Lessons, Payments, Profile, Students, Teachers } from './admin/index.admin'
-import { NoMatch } from './common/index.common' 
 // utils
-import requestStates from '../utils/requestStates'
+import { NONE, LOADING, SUCCESS, ERROR } from '../utils/requestStates'
 
 class Routes extends Component {
     componentDidMount() {
@@ -26,11 +25,11 @@ class Routes extends Component {
             return this.renderNotLoggedInRoutes()
         } else {
             if (isLoggedIn) return this.renderLoggedInRoutes()
-            if (refreshStatus === requestStates.NONE || refreshStatus === requestStates.LOADING) {
+            if (refreshStatus === NONE || refreshStatus === LOADING) {
                 return <Loader/>
-            } else if (refreshStatus === requestStates.ERROR) {
+            } else if (refreshStatus === ERROR) {
                 return this.renderNotLoggedInRoutes()
-            } else if (refreshStatus === requestStates.SUCCESS) {
+            } else if (refreshStatus === SUCCESS) {
                 return this.renderLoggedInRoutes()
             } else return <h1>wtf</h1>
         }

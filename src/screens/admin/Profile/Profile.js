@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import adminActions from '../actions';
+import adminActions from '../admin.actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { LOADING, SUCCESS, ERROR } from '../../../utils/requestStates';
-import { Header, Divider, Loader, Segment, Button, Form, Grid } from 'semantic-ui-react';
+import { Header, Loader, Segment, Button, Form, Grid } from 'semantic-ui-react';
 import Input from '../../common/Input/Input';
 import { I18n } from 'react-redux-i18n';
 import getInputType from '../../../utils/inputTypeByKey';
@@ -110,9 +110,10 @@ class Profile extends Component {
                 )
             } else return (
                 <Grid>
-                    {Object.keys(profile).map((key, id) => (
+                    asd
+                    {/* {Object.keys(profile).map((key, id) => (
                         <DataValuePair name={I18n.t(key) + ':'} value={profile[key]}/>
-                    ))}
+                    ))} */}
                 </Grid>
             )
         }

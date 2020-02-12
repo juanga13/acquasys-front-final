@@ -2,8 +2,8 @@ import adminStudentsActions, {
     CREATE,
     UPDATE,
     DELETE,
-} from './actions'
-import requests from './services'
+} from './students.actions'
+import requests from './students.services'
 
 
 const adminTeachersMiddleware = ({dispatch, getState}) => next => action => {

@@ -8,10 +8,8 @@ import adminActions, {
     EDIT_LESSON
 } from './admin.actions'
 import requests from './admin.services'
-import { push } from 'connected-react-router'
 
 const adminMiddleware = ({dispatch, getState}) => next => action => {
-    console.log('admin middleware')
     next(action);
     switch (action.type) {
         case GET_PROFILE:
@@ -53,6 +51,7 @@ const adminMiddleware = ({dispatch, getState}) => next => action => {
             requests.editLesson(action.lesson)
                 .then(data => {dispatch(adminActions.editLessonResponse(data))})
                 .catch((error => {dispatch(adminActions.editLessonError(error))}))
+            break;
 
         default:
             break;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NONE, LOADING, ERROR, SUCCESS } from '../../../utils/requestStates';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import adminTeachersActions from './actions';
+import adminTeachersActions from './teachers.actions';
 import { Header, Loader, Modal } from 'semantic-ui-react';
 import MyTable from '../../common/MyTable/MyTable';
 import { I18n } from 'react-redux-i18n';
@@ -59,6 +59,26 @@ class Teachers extends Component {
         }
     }
 
+    handleModalClose = e => { e.preventDefault(); this.setState(initialState); }
+    handleEdit = e => { e.preventDefault(); this.setState({...this.state, modalState: EDIT})}
+
+    handleNewTeacherSubmit = data => {
+        console.log('haro')
+        console.log(data)
+        const { modalState } = this.state;
+        if (modalState === NEW) {
+            console.log('creating new teacher')
+            this.props.createTeacher(data);
+        } else {
+            console.log('updating teacher')
+            this.props.updateTeacher(data);
+        }
+    }
+
+    handleDeleteTeacherSubmit = id => {
+        console.log('deleting teacher')
+        this.props.deleteTeacher(id)
+    }
     renderModals() {
         const { modalState, selectedTeacher } = this.props;
         return ([
@@ -72,7 +92,7 @@ class Teachers extends Component {
                 data={selectedTeacher}         
                 isOpen={modalState === (NEW || EDIT)}    
                 onClose={this.handleModalClose} 
-                onSubmit={this.handleNewStudentSubmit}/>,
+                onSubmit={this.handleNewTeacherSubmit}/>,
             <ModalDelete    
                 data={selectedTeacher}         
                 isOpen={modalState === DELETE}  

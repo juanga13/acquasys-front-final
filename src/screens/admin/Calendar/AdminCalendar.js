@@ -1,8 +1,8 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {ERROR, LOADING, NONE, SUCCESS} from "../../../utils/requestStates";
-import Calendar from "../../common/calendar/Calendar";
+import Calendar from "../../common/Calendar/Calendar";
 import LessonModal from "../Lessons/Modals/LessonModal";
 import adminActions from "../admin.actions";
 

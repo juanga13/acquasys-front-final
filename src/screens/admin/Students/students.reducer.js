@@ -8,7 +8,7 @@ import {
     DELETE,
     DELETE_RESPONSE,
     DELETE_ERROR,
-} from './actions'
+} from './students.actions'
 import { NONE, LOADING, SUCCESS, ERROR } from '../../../utils/requestStates'
 
 const initialState = {

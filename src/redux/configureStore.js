@@ -1,17 +1,17 @@
 import { createBrowserHistory } from 'history'
-import { applyMiddleware, compose, createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
 import createRootReducer from './rootReducer'
 
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
-import sessionMiddleware from '../screens/session/middleware'
+import sessionMiddleware from '../screens/session/session.middleware'
 
-import adminMiddleware from '../screens/admin/middleware'
-import adminStudentsMiddleware from '../screens/admin/Students/middleware'
-import adminTeachersMiddleware from '../screens/admin/Teachers/middleware'
-// import adminLessonsMiddleware from '../screens/admin/Lessons/middleware'
-// import adminPaymentsMiddleware from '../screens/admin/Payments/middleware'
+import adminMiddleware from '../screens/admin/admin.middleware'
+import adminStudentsMiddleware from '../screens/admin/Students/students.middleware'
+import adminTeachersMiddleware from '../screens/admin/Teachers/teachers.middleware'
+// import adminLessonsMiddleware from '../screens/admin/Lessons/lessons.middleware'
+// import adminPaymentsMiddleware from '../screens/admin/Payments/payments.middleware'
 
 export const history = createBrowserHistory()
 // console.log('configure store')

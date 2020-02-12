@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import sessionActions from '../actions'
+import sessionActions from '../session.actions'
 import { withRouter } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { Header, Message, Segment } from 'semantic-ui-react';
