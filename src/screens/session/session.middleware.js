@@ -36,8 +36,8 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
         case REFRESH_TOKEN:
             requests.checkToken()
                 .then(data => { 
-                    if (localStorage.getItem('role') === roles.ADMIN) {
-                        dispatch(adminActions.getProfile())
+                    if (localStorage.getItem('role') === "ROLE_ADMIN") {
+                        dispatch(sessionActions.getProfile())
                         dispatch(adminActions.getStudents())
                         dispatch(adminActions.getTeachers())
                         dispatch(adminActions.getLessons())
@@ -45,7 +45,7 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                         dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
                     dispatch(sessionActions.refreshTokenResponse(data))})
-                .catch(error => { 
+                .catch(error => {
                     delete localStorage['token'];
                     delete localStorage['role'];
                     dispatch(sessionActions.refreshTokenError(error))
