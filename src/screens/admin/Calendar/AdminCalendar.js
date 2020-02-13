@@ -16,7 +16,6 @@ class AdminCalendar extends Component {
     }
     render() {
         const { responseCalendar, getCalendarStatus, responseLessons, editLesson} = this.props;
-        debugger;
         switch (getCalendarStatus) {
             case (NONE):
                 return <h1>none</h1>
@@ -53,7 +52,7 @@ const mapStateToProps = state => ({
     currentEndDate: state.admin.main.currentEndDate,
     responseCalendar: state.admin.main.responseCalendar,
     getCalendarStatus: state.admin.main.getCalendarStatus,
-    responseLessons: state.admin.main.responseLessons,
+    responseLessons: state.admin.main.lessons,
 })
 
 const mapDispatchToProps = (dispatch) => ({

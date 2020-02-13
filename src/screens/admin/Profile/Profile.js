@@ -111,10 +111,9 @@ class Profile extends Component {
                 )
             } else return (
                 <Grid>
-                    asd
-                    {/* {Object.keys(profile).map((key, id) => (
+                    {Object.keys(profile).map((key, id) => (
                         <DataValuePair name={I18n.t(key) + ':'} value={profile[key]}/>
-                    ))} */}
+                    ))}
                 </Grid>
             )
         }
@@ -123,8 +122,8 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-    profile: state.admin.main.profile,
-    getProfileStatus: state.admin.main.getProfileStatus,
+    profile: state.session.responseProfile,
+    getProfileStatus: state.session.getProfileStatus,
 })
 
 const mapDispatchToProps = dispatch => ({

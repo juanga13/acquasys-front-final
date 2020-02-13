@@ -35,7 +35,7 @@ class Lessons extends Component {
 }
 
 const mapStateToProps = state => ({
-    lessons: state.admin.main.responseLessons,
+    lessons: state.admin.main.lessons,
     getLessonsStatus: state.admin.main.getLessonsStatus,
 })
 
