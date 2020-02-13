@@ -19,7 +19,7 @@ class Login extends Component {
             <div className='login-form'>
                 <Segment size='big'>
                     <Header dividing>Ingrese al sistema</Header>
-                    {loginStatus === ERROR && <Message error content={'Hubo un error al enviar el formulario (' + loginResponse + ')'}/>}
+                    {loginStatus === ERROR && <Message error content={'Hubo un error al ingresar al sistema, Email o contraseña incorrectos'}/>}
                     <LoginForm onSubmit={this.handleLogin} loading={loginStatus === LOADING}/> 
                 </Segment>
             </div>
