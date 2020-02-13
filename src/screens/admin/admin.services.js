@@ -1,22 +1,6 @@
 import { baseUrl } from '../../settings'
 
-const requests = {
-    getProfile: () => {
-        let requestOptions = {
-            headers: {
-                authorization: "Bearer " + localStorage.getItem("token"),
-            },
-            method: "GET",
-            mode: "cors",
-            cache: "no-cache",
-        };
-        return fetch(baseUrl + "/api/user/data", requestOptions)
-            .then(response => {
-                if (response.ok) return response.json()
-                else throw response.json()
-            })
-    },
-    
+const requests = {    
     getStudents: () => {
         const requestOptions = {
             method: "GET",

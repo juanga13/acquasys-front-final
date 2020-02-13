@@ -11,6 +11,7 @@ import regex from '../../../utils/regex';
 import { ERROR_NOTIFICATION } from '../../../utils/typesOfNotification';
 import DataValuePair from '../../common/DataValuePair/DatValuePair';
 import './Profile.scss'
+import sessionActions from '../../session/session.actions';
 
 const initialState = {
     editing: false,
@@ -127,7 +128,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getProfile: () => dispatch(adminActions.getProfile()),
+    getProfile: () => dispatch(sessionActions.getProfile()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile))

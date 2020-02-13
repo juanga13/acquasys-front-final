@@ -1,38 +1,47 @@
 import {
-    CREATE,
-    CREATE_RESPONSE,
-    CREATE_ERROR,
-    UPDATE,
-    UPDATE_RESPONSE,
-    UPDATE_ERROR,
-    DELETE,
-    DELETE_RESPONSE,
-    DELETE_ERROR,
+    CREATE_STUDENT,
+    CREATE_STUDENT_RESPONSE,
+    CREATE_STUDENT_ERROR,
+    UPDATE_STUDENT,
+    UPDATE_STUDENT_RESPONSE,
+    UPDATE_STUDENT_ERROR,
+    DELETE_STUDENT,
+    DELETE_STUDENT_RESPONSE,
+    DELETE_STUDENT_ERROR,
+    VERIFY_STUDENT,
+    VERIFY_STUDENT_RESPONSE,
+    VERIFY_STUDENT_ERROR
 } from './students.actions'
 import { NONE, LOADING, SUCCESS, ERROR } from '../../../utils/requestStates'
 
 const initialState = {
-    createStatus: NONE,
-    updateStatus: NONE,
-    deleteStatus: NONE,
+    createStudentStatus: NONE,
+    updateStudentStatus: NONE,
+    deleteStudentStatus: NONE,
+    verifyStudentStatus: NONE,
 }
 
 const adminStudentsReducer = (state = initialState, action) => {
     switch (action.type) {
         /** Create student */
-        case CREATE: return {...state, createStatus: LOADING}
-        case CREATE_RESPONSE: return {...state, createStatus: SUCCESS}
-        case CREATE_ERROR: return {...state, createStatus: ERROR}
+        case CREATE_STUDENT: return {...state, createStudentStatus: LOADING}
+        case CREATE_STUDENT_RESPONSE: return {...state, createStudentStatus: SUCCESS}
+        case CREATE_STUDENT_ERROR: return {...state, createStudentStatus: ERROR}
         
         /** Update student */
-        case UPDATE: return {...state, updateStatus: LOADING}
-        case UPDATE_RESPONSE: return {...state, updateStatus: SUCCESS}
-        case UPDATE_ERROR: return {...state, updateStatus: ERROR}
+        case UPDATE_STUDENT: return {...state, updateStudentStatus: LOADING}
+        case UPDATE_STUDENT_RESPONSE: return {...state, updateStudentStatus: SUCCESS}
+        case UPDATE_STUDENT_ERROR: return {...state, updateStudentStatus: ERROR}
         
         /** Delete student */
-        case DELETE: return {...state, deleteStatus: LOADING}
-        case DELETE_RESPONSE: return {...state, deleteStatus: SUCCESS}
-        case DELETE_ERROR: return {...state, deleteStatus: ERROR}
+        case DELETE_STUDENT: return {...state, deleteStudentStatus: LOADING}
+        case DELETE_STUDENT_RESPONSE: return {...state, deleteStudentStatus: SUCCESS}
+        case DELETE_STUDENT_ERROR: return {...state, deleteStudentStatus: ERROR}
+        
+        /** Verify student */
+        case VERIFY_STUDENT: return {...state, verifyStudentStatus: LOADING}
+        case VERIFY_STUDENT_RESPONSE: return {...state, verifyStudentStatus: SUCCESS}
+        case VERIFY_STUDENT_ERROR: return {...state, verifyStudentStatus: ERROR}
 
         default: return state
     }

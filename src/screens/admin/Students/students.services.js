@@ -20,6 +20,8 @@ const requests = {
     },
 
     updateStudent: (data) => {
+        console.log('request update student')
+        console.log(data)
         const requestOptions = {
             method: 'PUT',
             mode: "cors",

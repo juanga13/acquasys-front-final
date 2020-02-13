@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { CardHeader, Card, CardContent } from 'semantic-ui-react'
+import { I18n } from 'react-redux-i18n'
 
 class Home extends Component {
     render() {
@@ -16,14 +16,13 @@ class Home extends Component {
 
     renderWelcomeText() {
         if (this.props.isLoggedIn) {
-            return <p>{'Welcome ' + this.props.user.name + '!'}</p>
-        } else return <p>Welcome, you are not logged in yet.</p>
+            return <p>{I18n.t('main.home.welcomeLogged')}</p>
+        } else return <p>{I18n.t('main.home.welcomeNotLogged')}</p>
     }
 }
 
 const mapStateToProps = state => ({
     isLoggedIn: state.session.isLoggedIn,
-    user: state.session.user,
 })
 
 const mapDispatchToProps = dispatch => ({

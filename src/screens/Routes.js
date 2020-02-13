@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import { Loader } from 'semantic-ui-react'
+import { Loader, Dropdown } from 'semantic-ui-react'
 // actions
 import sessionActions from './session/session.actions'
 // scss
@@ -13,7 +13,13 @@ import { AdminCalendar, Dashboard, Lessons, Payments, Profile, Students, Teacher
 // utils
 import { NONE, LOADING, SUCCESS, ERROR } from '../utils/requestStates'
 
+const sexes = ['F', 'M']
+
 class Routes extends Component {
+    state = {
+        value: sexes[0]
+    }
+
     componentDidMount() {
         if (localStorage.getItem('token') !== null) this.props.refreshToken();
     }

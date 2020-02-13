@@ -1,7 +1,8 @@
 import sessionActions, {
     LOGIN,
-    LOGOUT,
     REFRESH_TOKEN,
+    GET_PROFILE,    
+    LOGOUT,
 } from './session.actions'
 import requests from './session.services'
 import { push } from 'connected-react-router'
@@ -19,8 +20,8 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                     dispatch(sessionActions.loginResponse(data));
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('role', data.role);
+                    dispatch(sessionActions.getProfile())
                     if (data.role === roles.ADMIN) {
-                        dispatch(adminActions.getProfile())
                         dispatch(adminActions.getStudents())
                         dispatch(adminActions.getTeachers())
                         dispatch(adminActions.getLessons())
@@ -50,7 +51,13 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                     dispatch(sessionActions.refreshTokenError(error))
                 })
             break;
-
+            
+        case GET_PROFILE:
+            requests.getProfile()
+                .then(data => { dispatch(sessionActions.getProfileResponse(data)) })
+                .catch(error => { dispatch(sessionActions.getProfileError(error)) })
+            break;
+                
         case LOGOUT:
             delete localStorage['token'];
             delete localStorage['role'];

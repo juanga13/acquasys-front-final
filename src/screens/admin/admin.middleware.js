@@ -12,17 +12,12 @@ import requests from './admin.services'
 const adminMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
     switch (action.type) {
-        case GET_PROFILE:
-            requests.getProfile()
-                .then(data => { dispatch(adminActions.getProfileResponse(data)) })
-                .catch(error => { dispatch(adminActions.getProfileError(error)) })
-            break;
-            
         case GET_STUDENTS:
             requests.getStudents()
                 .then(data => { dispatch(adminActions.getStudentsResponse(data)) })
                 .catch(error => { dispatch(adminActions.getStudentsError(error)) })
             break;
+
         case GET_TEACHERS:
             requests.getTeachers()
                 .then(data => { dispatch(adminActions.getTeachersResponse(data)) })

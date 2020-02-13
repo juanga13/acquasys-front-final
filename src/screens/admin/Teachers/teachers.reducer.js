@@ -1,38 +1,38 @@
 import {
-    CREATE,
-    CREATE_RESPONSE,
-    CREATE_ERROR,
-    UPDATE,
-    UPDATE_RESPONSE,
-    UPDATE_ERROR,
-    DELETE,
-    DELETE_RESPONSE,
-    DELETE_ERROR,
+    CREATE_TEACHER,
+    CREATE_TEACHER_RESPONSE,
+    CREATE_TEACHER_ERROR,
+    UPDATE_TEACHER,
+    UPDATE_TEACHER_RESPONSE,
+    UPDATE_TEACHER_ERROR,
+    DELETE_TEACHER,
+    DELETE_TEACHER_RESPONSE,
+    DELETE_TEACHER_ERROR,
 } from './teachers.actions'
 import { NONE, LOADING, SUCCESS, ERROR } from '../../../utils/requestStates'
 
 const initialState = {
-    createStatus: NONE,
-    updateStatus: NONE,
-    deleteStatus: NONE,
+    createTeacherStatus: NONE,
+    updateTeacherStatus: NONE,
+    deleteTeacherStatus: NONE,
 }
 
 const adminTeachersReducer = (state = initialState, action) => {
     switch (action.type) {
         /** Create teacher */
-        case CREATE: return {...state, createStatus: LOADING}
-        case CREATE_RESPONSE: return {...state, createStatus: SUCCESS}
-        case CREATE_ERROR: return {...state, createStatus: ERROR}
+        case CREATE_TEACHER: return {...state, createTeacherStatus: LOADING}
+        case CREATE_TEACHER_RESPONSE: return {...state, createTeacherStatus: SUCCESS}
+        case CREATE_TEACHER_ERROR: return {...state, createTeacherStatus: ERROR}
         
         /** Update teacher */
-        case UPDATE: return {...state, updateStatus: LOADING}
-        case UPDATE_RESPONSE: return {...state, updateStatus: SUCCESS}
-        case UPDATE_ERROR: return {...state, updateStatus: ERROR}
+        case UPDATE_TEACHER: return {...state, updateTeacherStatus: LOADING}
+        case UPDATE_TEACHER_RESPONSE: return {...state, updateTeacherStatus: SUCCESS}
+        case UPDATE_TEACHER_ERROR: return {...state, updateTeacherStatus: ERROR}
         
         /** Delete teacher */
-        case DELETE: return {...state, deleteStatus: LOADING}
-        case DELETE_RESPONSE: return {...state, deleteStatus: SUCCESS}
-        case DELETE_ERROR: return {...state, deleteStatus: ERROR}
+        case DELETE_TEACHER: return {...state, deleteTeacherStatus: LOADING}
+        case DELETE_TEACHER_RESPONSE: return {...state, deleteTeacherStatus: SUCCESS}
+        case DELETE_TEACHER_ERROR: return {...state, deleteTeacherStatus: ERROR}
 
 
         default: return state

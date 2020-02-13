@@ -16,10 +16,15 @@ const initialState = {
 class Students extends Component {
     state = initialState;
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.students !== this.props.students) {
+            console.log('props students changed!')
+        }
+    }
+
     handleNew = e => {e.preventDefault(); this.setState({...this.state, modalState: NEW})};
     
     render() {
-        console.log(this.state)
         return (
             <div>
                 <div className='card'>
@@ -64,29 +69,28 @@ class Students extends Component {
         }
     }
 
-    handleModalClose = e => { e.preventDefault(); this.setState(initialState); }
+    handleModalClose = () => { this.setState(initialState); }
     handleEdit = e => { e.preventDefault(); this.setState({...this.state, modalState: EDIT})}
 
     handleNewStudentSubmit = data => {
-        console.log('haro')
-        console.log(data)
         const { modalState } = this.state;
-        if (modalState === NEW) {
-            console.log('creating new student')
-            this.props.createStudent(data);
-        } else {
-            console.log('updating student')
-            this.props.updateStudent(data);
-        }
+        if (modalState === NEW) this.props.createStudent(data);
+        else this.props.updateStudent(data);
+    }
+
+    handleVerifyStudent = id => {
+        console.log('verifying unregistered student');
+        this.props.verifyStudent(id);
     }
 
     handleDeleteStudentSubmit = id => {
-        console.log('deleting student')
-        this.props.deleteStudent(id)
+        console.log('deleting student');
+        this.props.deleteStudent(id);
     }
 
     renderModals() {
         const { modalState, selectedStudent } = this.state;
+        const { createStatus, updateStatus, deleteStatus } = this.props;
         return ([
             <ModalPreview   
                 isOpen={modalState === PREVIEW} 
@@ -94,12 +98,16 @@ class Students extends Component {
                 onEdit={this.handleEdit}
                 data={selectedStudent}/>,
             // ModalNew with not null data is ModalEdit
-            <ModalNew    
+            <ModalNew
+                loading={createStatus === LOADING || updateStatus === LOADING}
                 isOpen={modalState === NEW || modalState === EDIT}    
                 onClose={this.handleModalClose} 
                 onSubmit={this.handleNewStudentSubmit}
+                onPreview={() => this.handlePreview(selectedStudent)}
+                onVerify={() => this.handleVerifyStudent(selectedStudent.id)}
                 data={selectedStudent}/>,
-            <ModalDelete    
+            <ModalDelete
+                loading={deleteStatus === LOADING}
                 isOpen={modalState === DELETE}  
                 onClose={this.handleModalClose} 
                 onConfirm={() => this.handleDeleteStudentSubmit(selectedStudent.id)}
@@ -111,12 +119,18 @@ class Students extends Component {
 const mapStateToProps = state => ({
     students: state.admin.main.students,
     getStudentsStatus: state.admin.main.getStudentsStatus,
+
+    createStudentStatus: state.admin.students.createStudentStatus,
+    updateStudentStatus: state.admin.students.updateStudentStatus,
+    deleteStudentStatus: state.admin.students.deleteStudentStatus,
+    verifyStudentStatus: state.admin.students.verifyStudentStatus,
 })
 
 const mapDispatchToProps = dispatch => ({    
-    createStudent: (data) => dispatch(adminStudentsActions.create(data)),
-    updateStudent: (data) => dispatch(adminStudentsActions.update(data)),
-    deleteStudent: (id) => dispatch(adminStudentsActions.delete(id)),
+    createStudent: (data) => dispatch(adminStudentsActions.createStudent(data)),
+    updateStudent: (data) => dispatch(adminStudentsActions.updateStudent(data)),
+    deleteStudent: (id) => dispatch(adminStudentsActions.deleteStudent(id)),
+    verifyStudent: (id) => dispatch(adminStudentsActions.verifyStudent(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Students))

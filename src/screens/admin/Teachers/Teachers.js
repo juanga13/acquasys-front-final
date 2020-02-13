@@ -105,15 +105,16 @@ class Teachers extends Component {
 const mapStateToProps = state => ({
     teachers:           state.admin.main.teachers,
     getTeachersStatus:  state.admin.main.getTeachersStatus,
-    createStatus:       state.admin.teachers.createStatus,
-    updateStatus:       state.admin.teachers.updateStatus,
-    deleteStatus:       state.admin.teachers.deleteStatus,
+    
+    createTeacherStatus:       state.admin.teachers.createStatus,
+    updateTeacherStatus:       state.admin.teachers.updateStatus,
+    deleteTeacherStatus:       state.admin.teachers.deleteStatus,
 })
 
 const mapDispatchToProps = dispatch => ({
-    createTeacher: (data) => dispatch(adminTeachersActions.create(data)),
-    updateTeacher: (data) => dispatch(adminTeachersActions.update(data)),
-    deleteTeacher: (id) => dispatch(adminTeachersActions.delete(id)),
+    createTeacher: (data) => dispatch(adminTeachersActions.createTeacher(data)),
+    updateTeacher: (data) => dispatch(adminTeachersActions.updateTeacher(data)),
+    deleteTeacher: (id) => dispatch(adminTeachersActions.deleteTeacher(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Teachers))

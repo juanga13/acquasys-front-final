@@ -31,8 +31,11 @@ class ModalNewForm extends Component {
 
     }
 
-    handleChange = e => {
+    handleChange = (e, data) => {
         e.preventDefault(); 
+        console.log('HANDLE CHANGE')
+        console.log(e)
+        console.log(data)
         this.setState({...this.state, value: {...this.state.values, [e.target.id]: e.target.value }});
     }
 

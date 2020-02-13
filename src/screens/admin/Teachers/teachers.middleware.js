@@ -1,7 +1,7 @@
 import adminTeachersActions, {
-    CREATE,
-    UPDATE,
-    DELETE,
+    CREATE_TEACHER,
+    UPDATE_TEACHER,
+    DELETE_TEACHER,
 } from './teachers.actions'
 import requests from './teachers.services'
 
@@ -9,20 +9,20 @@ import requests from './teachers.services'
 const adminTeachersMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
     switch (action.type) {
-        case CREATE:
+        case CREATE_TEACHER:
             requests.createTeacher(action.data)
-                .then(response => dispatch(adminTeachersActions.createResponse(response)))
-                .catch(error => dispatch(adminTeachersActions.createError(error)));
+                .then(response => dispatch(adminTeachersActions.createTeacherResponse(response)))
+                .catch(error => dispatch(adminTeachersActions.createTeacherError(error)));
             break;
-        case UPDATE:
+        case UPDATE_TEACHER:
             requests.updateTeacher(action.data)
-                .then(response => dispatch(adminTeachersActions.updateResponse(response)))
-                .catch(error => dispatch(adminTeachersActions.updateError(error)));
+                .then(response => dispatch(adminTeachersActions.updateTeacherResponse(response)))
+                .catch(error => dispatch(adminTeachersActions.updateTeacherError(error)));
             break;
-        case DELETE:
+        case DELETE_TEACHER:
             requests.deleteTeacher(action.id)
-                .then(response => dispatch(adminTeachersActions.deleteResponse(response)))
-                .catch(error => dispatch(adminTeachersActions.deleteError(error)));
+                .then(response => dispatch(adminTeachersActions.deleteTeacherResponse(response)))
+                .catch(error => dispatch(adminTeachersActions.deleteTeacherError(error)));
             break;
 
         default:

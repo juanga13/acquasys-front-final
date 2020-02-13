@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { Modal, Image, Header, Button } from 'semantic-ui-react'
+import { Modal, Image, Header, Button, Loader } from 'semantic-ui-react'
 
 class ModalDelete extends Component {
+    handleConfirm = () => {
+        this.props.onConfirm();
+        this.props.onClose()
+    }
+
     render() {
         return (
-            <Modal 
+            <Modal
                 dimmer='blurring' 
                 open={this.props.isOpen} 
                 onClose={this.props.onClose} 
@@ -14,10 +19,11 @@ class ModalDelete extends Component {
                 <Modal.Header>Desea eliminar este usuario?</Modal.Header>
                 <Modal.Content>
                     <p>Esta seguro de que quiere eliminar a </p>
+                    {this.props.loading && <Loader/>}
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative icon='close' labelPosition='right' content='No' onClick={this.props.onClose}/>
-                    <Button positive icon='check' labelPosition='right' content='Yes' onClick={this.props.onConfirm}/>
+                    <Button positive icon='check' labelPosition='right' content='Yes' onClick={this.handleConfirm}/>
                 </Modal.Actions>
             </Modal>
         )

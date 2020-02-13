@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import { Modal, Image, Header, Button, Segment, Form } from 'semantic-ui-react'
+import { Modal, Image, Button, Segment, Form } from 'semantic-ui-react'
 import { dummyAvatar } from '../../../../assets/index'
-import './ModalNew.scss'
 import Input from '../../../common/Input/Input'
 import { I18n } from 'react-redux-i18n'
 import getInputType from '../../../../utils/inputTypeByKey'
 import regex from '../../../../utils/regex'
+import './ModalNew.scss'
 
 const emptyValues = {
     id:'', email:'', password:'', name:'', surname:'', 
     dni:'', sex:'', avatarUrl:'', phoneNumber:'', 
     fatherName:'', fatherSurname:'', fatherPhone:'', fatherEmail:'', 
     motherName:'', motherSurname:'', motherPhone:'', motherEmail:'', 
-    socialPlan:'', affiliateNumber:'', address:'', birthday:'', 
-    verified:'', inscriptionDate:'', role:'', 
+    socialPlan:'', affiliateNumber:'', address:'', birthday: new Date('01/01/2005'), 
+    verified:'', inscriptionDate: new Date(), role:'', 
 }
 const emptyErrors = {};
 Object.keys(emptyValues).map(key => emptyErrors[key] = false);
@@ -44,7 +44,7 @@ class ModalNew extends Component {
          } = this.state.values;
         const errors = {
             id: false,
-            email: !regex.email.test(email),
+            email: email.length < 4,
             password: password.length < 4,  // TODO: password regex
             name: name.length < 0,
             surname: surname.length < 0,
@@ -78,9 +78,17 @@ class ModalNew extends Component {
         }
     }
 
-    handleChange = e => {
-        e.preventDefault(); 
-        this.setState({...this.state, value: {...this.state.values, [e.target.id]: e.target.value }});
+    handleDateChange = (value, id) => {
+        console.log(value)
+        this.setState({...this.state, values: {...this.state.values, [id]: value }});
+    }
+
+    handleChange = (e) => {
+        e.preventDefault();
+        // console.log('handle change')
+        // console.log(e.target)
+        // TODO: manage dropdown data 
+        this.setState({...this.state, values: {...this.state.values, [e.target.id]: e.target.value }});
     }
 
     handleSubmit = e => {
@@ -89,6 +97,7 @@ class ModalNew extends Component {
         if (this.verifyForm()) {
             console.log('nice! all data is ok')
             this.props.onSubmit(this.state.values);
+            this.props.onClose();
         } else {
             console.log('too bad, some data is wrong')
         }
@@ -103,25 +112,27 @@ class ModalNew extends Component {
         switch (type) {
             case 'id': return true;
             case 'role': return true;
+            case 'verified': return true;
+            case 'completed': return true;
             default: return false;
         }
     }
 
     render() {
-        console.log('AAAAAAAAAAAAAAAAAAAAA')
-        console.log(this.state)
         const { values, errors } = this.state;
         const editing = (this.props.data !== null);
         return (
             <Modal dimmer='blurring' open={this.props.isOpen} onClose={this.props.onClose}>
                 <Modal.Header>{editing ? 'Planilla de datos - Modo edición' : 'Agregar un nuevo alumno'}</Modal.Header>
                 <Modal.Content image>
-                    <Segment className='image-container'>
-                        <Image wrapped size='small' src={editing ? values.avatarUrl : dummyAvatar}/>
+                    <div className='image-container'>
+                        <Segment className='image'>
+                            <Image wrapped size='small' src={editing ? values.avatarUrl : dummyAvatar}/>
+                        </Segment>
                         <Input type='file' accept=".png, .jpeg"/>
-                    </Segment>
+                    </div>
                     <Modal.Description>
-                        <Form> 
+                        <Form loading={this.props.loading}> 
                             {Object.keys(values).map((key, id) => (
                                 this.excludeField(key) ? null :
                                     <Input
@@ -129,9 +140,9 @@ class ModalNew extends Component {
                                         title={I18n.t(key) + ':'}
                                         id={key} 
                                         type={getInputType(key)} 
-                                        value={key === 'password' ? '' : values[key] } 
+                                        value={values[key]} 
                                         placeholder={I18n.t('modal.fields.name.' + key)} 
-                                        onChange={this.handleChange} 
+                                        onChange={getInputType(key) === 'date' ? this.handleDateChange : this.handleChange} 
                                         autoFocus={id === 0}
                                         error={errors[key]}/>
                             ))}
@@ -139,6 +150,21 @@ class ModalNew extends Component {
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
+                    {editing && <Button
+                        onClick={this.props.onPreview}
+                        color='blue'
+                        labelPosition='right'
+                        icon='back'
+                        content='Atras'/>}
+                    {!values.verified && <div>
+                        <p>El usuario no esta verificado!</p>
+                        <Button
+                            onClick={this.props.onVerify}  // TODO: change to handleVerify and dont close modal
+                            color='teal'
+                            labelPosition='right'
+                            icon='form'
+                            content='Verificar'/>
+                    </div>}
                     <Button
                         onClick={this.props.onClose}
                         negative

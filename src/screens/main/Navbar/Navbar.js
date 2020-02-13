@@ -5,6 +5,8 @@ import sessionActions from '../../session/session.actions'
 import { connect } from 'react-redux'
 import roles from '../../../utils/roles'
 import { brandLogo } from '../../../assets'
+import { I18n } from 'react-redux-i18n'
+import './Navbar.scss'
 
 class Navbar extends Component {
     render() {
@@ -42,14 +44,15 @@ class Navbar extends Component {
         const role = localStorage.getItem('role');
         if (role === roles.ADMIN) return ([
             <Menu.Item as={NavLink} to='/calendar' key='navlink-profile'><Icon name='calendar'/>Calendario</Menu.Item>,
-            <Dropdown item text='Admnistracion'>
-                <Dropdown.Menu>
-                    <Dropdown.Item as={NavLink} to='/students' key='navlink-students'><Icon name='child'/>Alumnos</Dropdown.Item>
-                    <Dropdown.Item as={NavLink} to='/teachers' key='navlink-teachers'><Icon name='female'/>Profesores</Dropdown.Item>
-                    <Dropdown.Item as={NavLink} to='/lessons' key='navlink-lessons'><Icon name='tablet'/>Clases</Dropdown.Item>
-                    <Dropdown.Item as={NavLink} to='/payments' key='navlink-payments'><Icon name='wpforms'/>Pagos</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>,
+            <Menu.Item className='admin-management-menu'>
+                <Menu.Header>{I18n.t('main.navbar.admin.management')}</Menu.Header>
+                <Menu.Menu style={{display: 'flex', flexDirection: 'row'}}>
+                    <Menu.Item as={NavLink} to='/students' key='navlink-students'><Icon name='child'/>Alumnos</Menu.Item>
+                    <Menu.Item as={NavLink} to='/teachers' key='navlink-teachers'><Icon name='female'/>Profesores</Menu.Item>
+                    <Menu.Item as={NavLink} to='/lessons' key='navlink-lessons'><Icon name='tablet'/>Clases</Menu.Item>
+                    <Menu.Item as={NavLink} to='/payments' key='navlink-payments'><Icon name='wpforms'/>Pagos</Menu.Item>
+                </Menu.Menu>
+            </Menu.Item>,
             <Dropdown item text='Mi cuenta'>
                 <Dropdown.Menu>
                     <Dropdown.Item as={NavLink} to='/profile' key='navlink-profile'>Mi perfil</Dropdown.Item>

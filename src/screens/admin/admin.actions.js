@@ -1,6 +1,3 @@
-export const GET_PROFILE = 'GET_PROFILE'
-export const GET_PROFILE_RESPONSE = 'GET_PROFILE_RESPONSE'
-export const GET_PROFILE_ERROR = 'GET_PROFILE_ERROR'
 export const GET_STUDENTS = 'GET_STUDENTS'
 export const GET_STUDENTS_RESPONSE = 'GET_STUDENTS_RESPONSE'
 export const GET_STUDENTS_ERROR = 'GET_STUDENTS_ERROR'
@@ -21,10 +18,6 @@ export const EDIT_LESSON_RESPONSE = 'EDIT_LESSON_RESPONSE'
 export const EDIT_LESSON_ERROR = 'EDIT_LESSON_ERROR'
 
 const adminActions = {
-    getProfile: () => ({type: GET_PROFILE}),
-    getProfileResponse: (data) => ({type: GET_PROFILE_RESPONSE, response: data}),
-    getProfileError: (error) => ({type: GET_PROFILE_ERROR, response: error}),
-    
     getStudents: () => ({type: GET_STUDENTS}),
     getStudentsResponse: (data) => ({type: GET_STUDENTS_RESPONSE, response: data}),
     getStudentsError: (error) => ({type: GET_STUDENTS_ERROR, response: error}),
