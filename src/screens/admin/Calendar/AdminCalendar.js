@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {ERROR, LOADING, NONE, SUCCESS} from "../../../utils/requestStates";
-import Calendar from "../../common/Calendar/Calendar";
+import Calendar from "../../common/calendar/Calendar";
 import LessonModal from "../Lessons/Modals/LessonModal";
 import adminActions from "../admin.actions";
 
@@ -16,7 +16,7 @@ class AdminCalendar extends Component {
     }
     render() {
         const { responseCalendar, getCalendarStatus, responseLessons, editLesson} = this.props;
-
+        debugger;
         switch (getCalendarStatus) {
             case (NONE):
                 return <h1>none</h1>
@@ -49,11 +49,11 @@ class AdminCalendar extends Component {
 }
 
 const mapStateToProps = state => ({
-    currentStartDate: state.admin.currentStartDate,
-    currentEndDate: state.admin.currentEndDate,
-    responseCalendar: state.admin.responseCalendar,
-    getCalendarStatus: state.admin.getCalendarStatus,
-    responseLessons: state.admin.responseLessons,
+    currentStartDate: state.admin.main.currentStartDate,
+    currentEndDate: state.admin.main.currentEndDate,
+    responseCalendar: state.admin.main.responseCalendar,
+    getCalendarStatus: state.admin.main.getCalendarStatus,
+    responseLessons: state.admin.main.responseLessons,
 })
 
 const mapDispatchToProps = (dispatch) => ({

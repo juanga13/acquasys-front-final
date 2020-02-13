@@ -35,8 +35,8 @@ class Lessons extends Component {
 }
 
 const mapStateToProps = state => ({
-    lessons: state.admin.responseLessons,
-    getLessonsStatus: state.admin.getLessonsStatus,
+    lessons: state.admin.main.responseLessons,
+    getLessonsStatus: state.admin.main.getLessonsStatus,
 })
 
 const mapDispatchToProps = dispatch => ({
