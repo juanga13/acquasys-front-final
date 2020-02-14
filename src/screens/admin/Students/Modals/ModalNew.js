@@ -4,7 +4,6 @@ import { dummyAvatar } from '../../../../assets/index'
 import Input from '../../../common/Input/Input'
 import { I18n } from 'react-redux-i18n'
 import getInputType from '../../../../utils/inputTypeByKey'
-import regex from '../../../../utils/regex'
 import './ModalNew.scss'
 
 const emptyValues = {
@@ -36,12 +35,9 @@ class ModalNew extends Component {
      */
     verifyForm = () => {
         const { 
-            id, email, password, name, surname, dni, sex, avatarUrl, phoneNumber, 
-            fatherName, fatherSurname, fatherPhone, fatherEmail, 
-            motherName, motherSurname, motherPhone, motherEmail, 
-            socialPlan, affiliateNumber, address, birthday, 
-            verified, inscriptionDate, role, 
-         } = this.state.values;
+            email, password, name, surname, dni, phoneNumber, 
+            socialPlan, affiliateNumber, address, 
+        } = this.state.values;
         const errors = {
             id: false,
             email: email.length < 4,
@@ -78,16 +74,14 @@ class ModalNew extends Component {
         }
     }
 
-    handleDateChange = (value, id) => {
+    handleDateChange = (id, value) => {
+        console.log('handle date changeeeeeeeeeeeeeeeeeeeeeee')
         console.log(value)
         this.setState({...this.state, values: {...this.state.values, [id]: value }});
     }
 
     handleChange = (e) => {
         e.preventDefault();
-        // console.log('handle change')
-        // console.log(e.target)
-        // TODO: manage dropdown data 
         this.setState({...this.state, values: {...this.state.values, [e.target.id]: e.target.value }});
     }
 
@@ -113,7 +107,8 @@ class ModalNew extends Component {
             case 'id': return true;
             case 'role': return true;
             case 'verified': return true;
-            case 'completed': return true;
+            case 'complete': return true;
+            case 'avatarUrl': return true;
             default: return false;
         }
     }
@@ -133,19 +128,22 @@ class ModalNew extends Component {
                     </div>
                     <Modal.Description>
                         <Form loading={this.props.loading}> 
-                            {Object.keys(values).map((key, id) => (
-                                this.excludeField(key) ? null :
+                            {Object.keys(values).map((key, id) => {
+                                if (this.excludeField(key)) return null;
+                                const type = getInputType(key);
+                                return (
                                     <Input
                                         key={'modal-new-form-input-' + key + '-' + id} 
                                         title={I18n.t(key) + ':'}
                                         id={key} 
-                                        type={getInputType(key)} 
+                                        type={type} 
                                         value={values[key]} 
                                         placeholder={I18n.t('modal.fields.name.' + key)} 
-                                        onChange={getInputType(key) === 'date' ? this.handleDateChange : this.handleChange} 
+                                        onChange={this.handleChange} 
                                         autoFocus={id === 0}
-                                        error={errors[key]}/>
-                            ))}
+                                        error={errors[key]}/>    
+                                )
+                            })}
                         </Form>                          
                     </Modal.Description>
                 </Modal.Content>
@@ -154,7 +152,7 @@ class ModalNew extends Component {
                         onClick={this.props.onPreview}
                         color='blue'
                         labelPosition='right'
-                        icon='back'
+                        icon='long arrow alternate left'
                         content='Atras'/>}
                     {!values.verified && <div>
                         <p>El usuario no esta verificado!</p>

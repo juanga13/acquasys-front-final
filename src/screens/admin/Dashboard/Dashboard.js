@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Segment, Image, Header, Divider } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import './Dashboard.scss'
-import { brandLogo, students, teachers, lessons, payments } from '../../../assets/index'
+import { students, teachers, lessons, payments } from '../../../assets/index'
 
 class Dashboard extends Component {
     render() {

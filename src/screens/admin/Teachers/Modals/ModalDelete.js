@@ -1,42 +1,33 @@
 import React, { Component } from 'react'
-import { Modal, Image, Header, Button } from 'semantic-ui-react'
-import { I18n } from 'react-redux-i18n';
-import adminTeachersActions from '../teachers.actions';
-import { CLOSED } from '../../../../utils/modalStates';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Modal, Button, Loader } from 'semantic-ui-react'
 
 class ModalDelete extends Component {
+    handleConfirm = () => {
+        this.props.onConfirm();
+        this.props.onClose()
+    }
+
     render() {
-        const { selectedTeacher } = this.props;
-        console.log(selectedTeacher)
         return (
-            <Modal 
+            <Modal
                 dimmer='blurring' 
                 open={this.props.isOpen} 
-                onClose={this.props.closeModal} 
+                onClose={this.props.onClose} 
                 size='mini'>
                 
-                <Modal.Header>{I18n.t('admin.teachers.delete.title')}</Modal.Header>
+                {/* TODO: title and description to I18n */}
+                <Modal.Header>Desea eliminar este usuario?</Modal.Header>
                 <Modal.Content>
-                    {selectedTeacher && <p>{I18n.t('admin.teachers.delete.description') + selectedTeacher.first_name + ', ' + selectedTeacher.last_name}</p>}
+                    <p>Esta seguro de que quiere eliminar a </p>
+                    {this.props.loading && <Loader/>}
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button negative icon='close' labelPosition='right' content='No' onClick={this.props.closeModal}/>
-                    <Button positive icon='check' labelPosition='right' content='Yes' onClick={this.props.onConfirm}/>
+                    <Button negative icon='close' labelPosition='right' content='No' onClick={this.props.onClose}/>
+                    <Button positive icon='check' labelPosition='right' content='Yes' onClick={this.handleConfirm}/>
                 </Modal.Actions>
             </Modal>
         )
     }
 }
 
-const mapStateToProps = state => ({
-    selectedTeacher: state.admin.teachers.selectedTeacher,
-})
-
-const mapDispatchToProps = dispatch => ({
-    closeModal: () => dispatch(adminTeachersActions.changeModalState(CLOSED)),
-    deleteTeacher: (id) => dispatch(adminTeachersActions.delete(id)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ModalDelete))
+export default ModalDelete

@@ -35,7 +35,6 @@ const requests = {
     },
     
     checkToken: () => {
-        console.log('check token')
         const roleRequestOptions = {
             method: "GET",
             mode: "cors",
@@ -46,12 +45,29 @@ const requests = {
                 if (response.ok) return response.json() 
                 else throw response.json()
             })
-            .then(response => { return response })
-            .catch(error=> { throw error })
+    },
+
+    register: (email, password) => {
+        const requestOptions = {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {"Content-Type": "application/json"},
+            redirect: "follow",
+            referrer: "no-referrer",
+            body: JSON.stringify({email: email, password: password}),
+        }
+        return fetch(baseUrl + "/api/user/register", requestOptions)
+            .then(response => {
+                // response.json() or .text() fails due to locked body
+                if (response.ok) return response;
+                throw response
+            })
     },
 
     getProfile: () => {
-        let requestOptions = {
+        const requestOptions = {
             headers: {
                 authorization: "Bearer " + localStorage.getItem("token"),
             },

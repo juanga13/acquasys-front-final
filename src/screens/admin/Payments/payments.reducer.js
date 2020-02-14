@@ -8,7 +8,7 @@ import {
     SET_FEE,
     SET_FEE_RESPONSE,
     SET_FEE_ERROR,
-} from './actions'
+} from './payments.actions'
 import { NONE, LOADING, SUCCESS, ERROR } from '../../../utils/requestStates'
 
 const initialState = {

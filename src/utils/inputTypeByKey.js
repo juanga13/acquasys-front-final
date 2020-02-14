@@ -14,8 +14,10 @@ const getInputType = (key) => {
         case 'birthday':        return 'date';  // special type managed in Input
         case 'verified':        return 'boolean';  // special type managed in Input
         case 'complete':        return 'boolean';
-        case 'inscriptionDate': return 'date';  // special type managed in Input
         
+        //TODO: fix in back to be a date? 
+        // case 'inscriptionDate': return 'date';  // special type managed in Input
+
         default:
             /*
             All 'name' input types are:

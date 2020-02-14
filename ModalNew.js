@@ -4,6 +4,7 @@ import { dummyAvatar } from '../../../../assets/index'
 import Input from '../../../common/Input/Input'
 import { I18n } from 'react-redux-i18n'
 import getInputType from '../../../../utils/inputTypeByKey'
+import regex from '../../../../utils/regex'
 import './ModalNew.scss'
 
 const emptyValues = {
@@ -35,8 +36,11 @@ class ModalNew extends Component {
      */
     verifyForm = () => {
         const { 
-            email, password, name, surname, dni, phoneNumber,
-            socialPlan, affiliateNumber, address,
+            id, email, password, name, surname, dni, sex, avatarUrl, phoneNumber, 
+            fatherName, fatherSurname, fatherPhone, fatherEmail, 
+            motherName, motherSurname, motherPhone, motherEmail, 
+            socialPlan, affiliateNumber, address, birthday, 
+            verified, inscriptionDate, role, 
          } = this.state.values;
         const errors = {
             id: false,

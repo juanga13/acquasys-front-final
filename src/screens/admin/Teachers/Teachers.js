@@ -3,7 +3,7 @@ import { NONE, LOADING, ERROR, SUCCESS } from '../../../utils/requestStates';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import adminTeachersActions from './teachers.actions';
-import { Header, Loader, Modal } from 'semantic-ui-react';
+import { Header, Loader } from 'semantic-ui-react';
 import MyTable from '../../common/MyTable/MyTable';
 import { I18n } from 'react-redux-i18n';
 import { CLOSED, PREVIEW, EDIT, NEW, DELETE } from '../../../utils/modalStates';

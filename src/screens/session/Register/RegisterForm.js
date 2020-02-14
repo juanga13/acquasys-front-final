@@ -14,14 +14,14 @@ const initialState = {
     },
 }
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
     state = initialState;
 
     _verifyForm() {
         const { email, password } = this.state.values;
         const errors = {
             email: email.length < 4,
-            password: password.length < 4,  // TODO: password regex
+            password: password.length < 4,
         }
         if (Object.values(errors).every((value) => !value)) {
             this.setState({...this.state, errors: initialState.errors})
@@ -48,7 +48,6 @@ class LoginForm extends Component {
     }
 
     render() {
-        // console.log('render')
         return (
             <Form onSubmit={this.handleSubmit} loading={this.props.loading}>
                 <Input 
@@ -80,4 +79,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm
+export default RegisterForm

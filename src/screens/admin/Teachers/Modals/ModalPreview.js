@@ -1,24 +1,20 @@
 import React, { Component } from 'react'
-import { Loader, Header, Modal, Image, Button, Icon, Grid, Divider, GridRow, Menu } from 'semantic-ui-react';
+import { Modal, Image, Button, Grid, Divider, Menu } from 'semantic-ui-react';
 import { dummyAvatar } from '../../../../assets/index'
-import { I18n } from 'react-redux-i18n';
 import DataValuePair from '../../../common/DataValuePair/DatValuePair';
-import adminTeachersActions from '../teachers.actions';
-import { CLOSED, EDIT, PREVIEW } from '../../../../utils/modalStates';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 class ModalPreview extends Component {
     state = {
-        data: this.props,
+        activeMenu: 0,
     }
 
     render() {
-        const { data } = this.state;
+        const { data, isOpen } = this.props;
+        
         return (
-            <Modal dimmer='blurring' open={this.props.isOpen} onClose={this.props.onClose}>
+            <Modal dimmer='blurring' open={isOpen} onClose={this.props.onClose}>
                 <Modal.Header>Planilla de datos - Modo vista previa</Modal.Header>
-                <Modal.Content image>
+                {data !== null && <Modal.Content image>
                     <Image wrapped size='medium' src={data.avatarUrl || dummyAvatar}/>
                     <Modal.Description style={{width: '100%'}}>
                         <Menu tabular>
@@ -65,7 +61,7 @@ class ModalPreview extends Component {
                                 <DataValuePair name='Email: '               value={data.motherEmail}/>
                             </Grid>)}
                     </Modal.Description>
-                </Modal.Content>
+                </Modal.Content>}
                 <Modal.Actions>
                     <Button
                         onClick={this.props.onEdit}
@@ -79,14 +75,4 @@ class ModalPreview extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    modalState: state.admin.teachers.modalState,
-    selectedTeacher: state.admin.teachers.selectedTeacher
-})
-
-const mapDispatchToProps = dispatch => ({
-    closeModal: () => dispatch(adminTeachersActions.changeModalState(CLOSED)),
-    editModal: () => dispatch(adminTeachersActions.changeModalState(EDIT)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ModalPreview))
+export default ModalPreview
