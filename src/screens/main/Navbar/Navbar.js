@@ -31,7 +31,7 @@ class Navbar extends Component {
 
     renderLoggedInItemsLeft() {
         const role = localStorage.getItem('role')
-        if (role === roles.ADMIN) return ([
+        if (role === roles.ADMIN || role === roles.STUDENT) return ([
             <Menu.Item as={NavLink} to='/dashboard' key='navlink-profile'>
                 <Icon name='th large'/>
                 Dashboard
@@ -63,27 +63,28 @@ class Navbar extends Component {
         else if (role === roles.TEACHER) return ([
             
             <Menu.Item as={NavLink} to='/profile' key='navlink-profile'>
-                Profile
+                Perfil
             </Menu.Item>,
             <Menu.Item as={Button} onClick={this.props.logout} key='navlink-logout'>
-                Logout
+                Salir
             </Menu.Item>,
         ])
         else if (role === roles.STUDENT) return ([
-            
+            <Menu.Item as={NavLink} to='/calendar' key='navlink-profile'><Icon name='calendar'/>Calendario</Menu.Item>,
             <Menu.Item as={NavLink} to='/profile' key='navlink-profile'>
-                Profile
+                Perfil
             </Menu.Item>,
+            <Menu.Item as={NavLink} to='/lessons' key='navlink-lessons'><Icon name='tablet'/>Clases</Menu.Item>,
             <Menu.Item as={Button} onClick={this.props.logout} key='navlink-logout'>
-                Logout
+                Salir
             </Menu.Item>,
         ])
         else if (role === roles.UNVERIFIED_STUDENT) return ([
             <Menu.Item as={NavLink} to='/profile' key='navlink-profile'>
-                Profile
+                Perfil
             </Menu.Item>,
             <Menu.Item as={Button} onClick={this.props.logout} key='navlink-logout'>
-                Logout
+                Salir
             </Menu.Item>,
         ])
         else return (

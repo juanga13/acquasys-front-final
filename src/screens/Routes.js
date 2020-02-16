@@ -12,6 +12,11 @@ import Login from './session/Login/Login'
 import { AdminCalendar, Dashboard, Lessons, Payments, Profile, Students, Teachers } from './admin/index.admin'
 // utils
 import { NONE, LOADING, SUCCESS, ERROR } from '../utils/requestStates'
+import StudentCalendar from "./student/Calendar/StudentCalendar";
+import StudentLessons from "./student/Lessons/StudentLessons";
+import StudentProfile from "./student/Profile/StudentProfile";
+import StudentDashboard from "./student/Dashboard/StudentDashboard";
+import roles from "../utils/roles";
 
 const sexes = ['F', 'M']
 
@@ -42,10 +47,12 @@ class Routes extends Component {
     }
 
     renderLoggedInRoutes() {
+        const role = localStorage.getItem('role');
         return (
             <div>
                 <Navbar/>
                 <div className='routes-container'>
+                    {role === roles.ADMIN &&
                     <Switch>
                         <Route exact path='/' component={Home}/>
                         <Route path='/dashboard' component={Dashboard}/>
@@ -55,9 +62,19 @@ class Routes extends Component {
                         <Route path='/lessons' component={Lessons}/>
                         <Route path='/payments' component={Payments}/>
                         <Route path='/profile' component={Profile}/>
-                        
                         <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
                     </Switch>
+                    }
+                    {role === roles.STUDENT &&
+                    <Switch>
+                        <Route exact path='/' component={Home}/>
+                        <Route path='/dashboard' component={StudentDashboard}/>
+                        <Route path='/calendar' component={StudentCalendar}/>
+                        <Route path='/lessons' component={StudentLessons}/>
+                        <Route path='/profile' component={StudentProfile}/>
+                        <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
+                    </Switch>
+                    }
                 </div>
             </div>
         )

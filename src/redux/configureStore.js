@@ -10,6 +10,7 @@ import sessionMiddleware from '../screens/session/session.middleware'
 import adminMiddleware from '../screens/admin/admin.middleware'
 import adminStudentsMiddleware from '../screens/admin/Students/students.middleware'
 import adminTeachersMiddleware from '../screens/admin/Teachers/teachers.middleware'
+import studentMiddleware from "../screens/student/student.middleware";
 // import adminLessonsMiddleware from '../screens/admin/Lessons/lessons.middleware'
 // import adminPaymentsMiddleware from '../screens/admin/Payments/payments.middleware'
 
@@ -28,6 +29,7 @@ export default function configureStore(preloadedState) {
             adminTeachersMiddleware,
             // adminLessonsMiddleware,
             // adminPaymentsMiddleware,
+            studentMiddleware,
             routerMiddleware(history),
         ),
     )

@@ -9,6 +9,7 @@ import { push } from 'connected-react-router'
 import roles from '../../utils/roles';
 import adminActions from '../admin/admin.actions';
 import {tenDaysBeforeNow} from "../../utils/dates";
+import studentActions from "../student/student.actions";
 
 const sessionMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
@@ -28,6 +29,10 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                         dispatch(adminActions.getPayments())
                         dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
+                    if (data.role === roles.STUDENT) {
+                      dispatch(studentActions.getLessons())
+                      dispatch(studentActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
+                    }
                     dispatch(push('/profile'));
                 })
                 .catch(error => dispatch(sessionActions.loginError(error)))
@@ -36,13 +41,17 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
         case REFRESH_TOKEN:
             requests.checkToken()
                 .then(data => { 
-                    if (localStorage.getItem('role') === "ROLE_ADMIN") {
+                    if (localStorage.getItem('role') === roles.ADMIN) {
                         dispatch(sessionActions.getProfile())
                         dispatch(adminActions.getStudents())
                         dispatch(adminActions.getTeachers())
                         dispatch(adminActions.getLessons())
                         dispatch(adminActions.getPayments())
                         dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
+                    }
+                    if (localStorage.getItem('role')=== roles.STUDENT) {
+                        dispatch(studentActions.getLessons())
+                        dispatch(studentActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
                     dispatch(sessionActions.refreshTokenResponse(data))})
                 .catch(error => {
