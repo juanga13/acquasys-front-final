@@ -1,5 +1,4 @@
 import adminActions, {
-    GET_PROFILE,
     GET_STUDENTS,
     GET_TEACHERS,
     GET_LESSONS,

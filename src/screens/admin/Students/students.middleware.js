@@ -6,19 +6,13 @@ import adminStudentsActions, {
 } from './students.actions'
 import requests from './students.services'
 import adminActions from '../admin.actions'
-import { act } from 'react-dom/test-utils';
 
 
 const adminTeachersMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
     switch (action.type) {
-        case CREATE_STUDENT:
-            // convert to ms as back uses ms
-            let createData = action.data;
-            createData.birthday = createData.birthday.getMilliseconds()
-            createData.inscriptionDate = createData.inscriptionDate.getMilliseconds()
-            
-            requests.createStudent(createData)
+        case CREATE_STUDENT:            
+            requests.createStudent(action.data)
                 .then(response => {
                     dispatch(adminStudentsActions.createStudentResponse(response))
                     dispatch(adminActions.getStudents())
@@ -27,12 +21,7 @@ const adminTeachersMiddleware = ({dispatch, getState}) => next => action => {
             break;
 
         case UPDATE_STUDENT:
-            // convert to ms as back uses ms
-            let updateData = action.data;
-            updateData.birthday = updateData.birthday.getMilliseconds()
-            updateData.inscriptionDate = updateData.inscriptionDate.getMilliseconds()
-            
-            requests.updateStudent(updateData)
+            requests.updateStudent(action.data)
                 .then(response => {
                     dispatch(adminStudentsActions.updateStudentResponse(response))
                     dispatch(adminActions.getStudents())

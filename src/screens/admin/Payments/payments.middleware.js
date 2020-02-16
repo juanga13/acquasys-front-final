@@ -3,7 +3,7 @@ import adminStudentsActions, {
     GET_CURRENT_FEE,
     SET_FEE,
 } from './actions'
-import requests from './services'
+import requests from './payments.services'
 
 
 const adminTeachersMiddleware = ({dispatch, getState}) => next => action => {

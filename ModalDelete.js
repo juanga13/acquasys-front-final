@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Button, Loader } from 'semantic-ui-react'
+import { Modal, Image, Header, Button, Loader } from 'semantic-ui-react'
 
 class ModalDelete extends Component {
     handleConfirm = () => {

@@ -7,14 +7,14 @@ const Input = props => {
         return (
             <Form.Field key={props.key}>
                 {props.title && <p style={{fontWeight: 'bold'}}>{props.title}</p>}
+                {/* // TODO: the back needs to send dates in milliseconds 
                 <DatePicker
                     id={props.id}
                     placeholder={props.label}       
                     onBlur={props.onBlur}
-                    icon={props.icon}
                     error={props.error}
                     selected={new Date(props.value)}
-                    onChange={(value) => props.onChange(value, props.id)}/>
+                    onChange={(value) => props.onChange(props.id, value.getMilliseconds())}/> */}
             </Form.Field>
         )
     } else if (props.type === 'boolean') {

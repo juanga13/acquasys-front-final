@@ -1,8 +1,4 @@
-const roles = {
-    ADMIN: "ROLE_ADMIN",
-    TEACHER: "ROLE_TEACHER",
-    STUDENT: "ROLE_STUDENT",
-    UNVERIFIED_STUDENT: "ROLE_UNREGISTERED"
-};
-
-export default roles;
+export const ADMIN = "ROLE_ADMIN";
+export const TEACHER = "ROLE_TEACHER";
+export const STUDENT = "ROLE_STUDENT";
+export const UNVERIFIED_STUDENT = "ROLE_UNREGISTERED";

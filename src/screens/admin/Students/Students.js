@@ -91,14 +91,18 @@ class Students extends Component {
     renderModals() {
         const { modalState, selectedStudent } = this.state;
         const { createStatus, updateStatus, deleteStatus } = this.props;
+        console.log('renderrrr')
+        console.log(selectedStudent)
         return ([
-            <ModalPreview   
+            <ModalPreview
+                key='students-modal-preview'
                 isOpen={modalState === PREVIEW} 
                 onClose={this.handleModalClose} 
                 onEdit={this.handleEdit}
                 data={selectedStudent}/>,
             // ModalNew with not null data is ModalEdit
             <ModalNew
+                key='students-modal-new'
                 loading={createStatus === LOADING || updateStatus === LOADING}
                 isOpen={modalState === NEW || modalState === EDIT}    
                 onClose={this.handleModalClose} 
@@ -107,6 +111,7 @@ class Students extends Component {
                 onVerify={() => this.handleVerifyStudent(selectedStudent.id)}
                 data={selectedStudent}/>,
             <ModalDelete
+                key='students-modal-delete'
                 loading={deleteStatus === LOADING}
                 isOpen={modalState === DELETE}  
                 onClose={this.handleModalClose} 

@@ -2,7 +2,11 @@ import {
     LOGIN,
     LOGIN_RESPONSE,
     LOGIN_ERROR,
-
+    
+    REGISTER,
+    REGISTER_RESPONSE,
+    REGISTER_ERROR,
+    
     REFRESH_TOKEN,
     REFRESH_TOKEN_RESPONSE,
     REFRESH_TOKEN_ERROR,
@@ -20,6 +24,8 @@ const initialState = {
     loginResponse: null,
     loginStatus: NONE,
 
+    registerStatus: NONE,
+
     refreshResponse: null,
     refreshStatus: NONE,
 
@@ -32,6 +38,11 @@ const sessionReducer = (state = initialState, action) => {
         case LOGIN: return { ...state, isLoggedIn: false, loginStatus: LOADING, refreshResponse: null, refreshStatus: NONE }
         case LOGIN_RESPONSE: return { ...state, isLoggedIn: true, loginResponse: action.response, loginStatus: SUCCESS }
         case LOGIN_ERROR: return { ...state, isLoggedIn: false, loginResponse: action.response, loginStatus: ERROR }
+
+        /** Register */
+        case REGISTER: return {...state, registerStatus: LOADING}
+        case REGISTER_RESPONSE: return {...state, registerStatus: SUCCESS}
+        case REGISTER_ERROR: return {...state, registerStatus: ERROR}
 
         /* Refresh token */
         case REFRESH_TOKEN: return { ...state, isLoggedIn: false, refreshStatus: LOADING } 

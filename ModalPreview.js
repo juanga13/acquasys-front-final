@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Modal, Image, Button, Grid, Divider, Menu } from 'semantic-ui-react';
+import { Loader, Header, Modal, Image, Button, Icon, Grid, Divider, GridRow, Menu } from 'semantic-ui-react';
 import { dummyAvatar } from '../../../../assets/index'
+import { I18n } from 'react-redux-i18n';
 import DataValuePair from '../../../common/DataValuePair/DatValuePair';
 
 class ModalPreview extends Component {

@@ -1,30 +1,45 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import { Loader, Dropdown } from 'semantic-ui-react'
-// actions
+import { Loader } from 'semantic-ui-react'
+
 import sessionActions from './session/session.actions'
-// scss
+
+import { ADMIN, TEACHER, STUDENT, UNVERIFIED_STUDENT } from '../utils/roles'
+import { NONE, LOADING, SUCCESS, ERROR } from '../utils/requestStates'
+
 import './Routes.scss'
-// component screens
+
 import { Contact, Home, Navbar, News } from './main/index.main'
 import Login from './session/Login/Login'
-import { AdminCalendar, Dashboard, Lessons, Payments, Profile, Students, Teachers } from './admin/index.admin'
-// utils
-import { NONE, LOADING, SUCCESS, ERROR } from '../utils/requestStates'
-import StudentCalendar from "./student/Calendar/StudentCalendar";
-import StudentLessons from "./student/Lessons/StudentLessons";
-import StudentProfile from "./student/Profile/StudentProfile";
-import StudentDashboard from "./student/Dashboard/StudentDashboard";
-import roles from "../utils/roles";
-
-const sexes = ['F', 'M']
+import { 
+    Profile as AdminProfile, 
+    Dashboard as AdminDashboard, 
+    AdminCalendar, 
+    Students as AdminStudents, 
+    Teachers as AdminTeachers, 
+    Lessons as AdminLessons, 
+    Payments as AdminPayments, 
+} from './admin/index.admin'
+import {
+    Profile as TeacherProfile,
+    Dashboard as TeacherDashboard,
+    Calendar as TeacherCalendar,
+    Lessons as TeacherLessons,
+    Attendances as TeacherAttendances,
+} from './teacher/index.teacher'
+import Register from './session/Register/Register'
+// import {
+//     Profile as StudentProfile,
+//     Dashboard as StudentDashboard,
+//     Calendar as StudentCalendar,
+//     Lessons as StudentLessons,
+// } from './student/index.student'
+// import {
+//     Profile as UnverifiedProfile,
+// } from './unverified/index.unverified'
 
 class Routes extends Component {
-    state = {
-        value: sexes[0]
-    }
-
     componentDidMount() {
         if (localStorage.getItem('token') !== null) this.props.refreshToken();
     }
@@ -47,37 +62,87 @@ class Routes extends Component {
     }
 
     renderLoggedInRoutes() {
-        const role = localStorage.getItem('role');
-        return (
-            <div>
-                <Navbar/>
-                <div className='routes-container'>
-                    {role === roles.ADMIN &&
-                    <Switch>
-                        <Route exact path='/' component={Home}/>
-                        <Route path='/dashboard' component={Dashboard}/>
-                        <Route path='/calendar' component={AdminCalendar}/>
-                        <Route path='/students' component={Students}/>
-                        <Route path='/teachers' component={Teachers}/>
-                        <Route path='/lessons' component={Lessons}/>
-                        <Route path='/payments' component={Payments}/>
-                        <Route path='/profile' component={Profile}/>
-                        <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
-                    </Switch>
-                    }
-                    {role === roles.STUDENT &&
-                    <Switch>
-                        <Route exact path='/' component={Home}/>
-                        <Route path='/dashboard' component={StudentDashboard}/>
-                        <Route path='/calendar' component={StudentCalendar}/>
-                        <Route path='/lessons' component={StudentLessons}/>
-                        <Route path='/profile' component={StudentProfile}/>
-                        <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
-                    </Switch>
-                    }
-                </div>
-            </div>
-        )
+        const role = localStorage.getItem('role')
+        switch (role) {
+            case ADMIN:
+                return (
+                    <div>
+                        <Navbar/>
+                        <div className='routes-container'>
+                            <Switch>
+                                <Route exact path='/' component={Home}/>
+                                <Route path='/profile' component={AdminProfile}/>
+                                <Route path='/dashboard' component={AdminDashboard}/>
+                                <Route path='/calendar' component={AdminCalendar}/>
+                                <Route path='/students' component={AdminStudents}/>
+                                <Route path='/teachers' component={AdminTeachers}/>
+                                <Route path='/lessons' component={AdminLessons}/>
+                                <Route path='/payments' component={AdminPayments}/>
+                                
+                                <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
+                            </Switch>
+                        </div>
+                    </div>
+                )
+            case TEACHER:
+                return (
+                    <div>
+                        <Navbar/>
+                        <div className='routes-container'>
+                            <Switch>
+                                <Route exact path='/' component={Home}/>
+                                <Route path='/profile' component={TeacherProfile}/>
+                                <Route path='/dashboard' component={TeacherDashboard}/>
+                                <Route path='/calendar' component={TeacherCalendar}/>
+                                <Route path='/lessons' component={TeacherLessons}/>
+                                <Route path='/attendances' component={TeacherAttendances}/>
+                                
+                                <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
+                            </Switch>
+                        </div>
+                    </div>
+                )
+
+            case STUDENT:
+                return (
+                    <div>
+                        <Navbar/>
+                        <div className='routes-container'>
+                            <Switch>
+                                <Route exact path='/' component={Home}/>
+                                <Route path='/news' component={News}/>
+                                <Route path='/contact' component={Contact}/>
+                                {/* <Route path='/profile' component={StudentProfile}/>
+                                <Route path='/dashboard' component={StudentDashboard}/>
+                                <Route path='/calendar' component={StudentCalendar}/> */}
+                                {/* TODO: student specific routes */}
+
+                                <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
+                            </Switch>
+                        </div>
+                    </div>
+                )
+
+            case UNVERIFIED_STUDENT:
+                return (
+                    <div>
+                        <Navbar/>
+                        <div className='routes-container'>
+                            <Switch>
+                                <Route exact path='/' component={Home}/>
+                                <Route path='/news' component={News}/>
+                                <Route path='/contact' component={Contact}/>
+                                {/* <Route path='/profile' component={UnverifiedProfile}/> */}
+                                
+                                <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
+                            </Switch>
+                        </div>
+                    </div>
+                )
+
+            default: return <h1>Invalid role</h1>
+        }
+        
     }
 
     renderNotLoggedInRoutes() {
@@ -90,6 +155,7 @@ class Routes extends Component {
                         <Route path='/news' component={News}/>
                         <Route path='/contact' component={Contact}/>
                         <Route path='/login' component={Login}/>
+                        <Route path='/register' component={Register}/>
                         
                         <Route path="*" render={() => <Redirect to='/login'/>}/>
                     </Switch>

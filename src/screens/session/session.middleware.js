@@ -3,55 +3,79 @@ import sessionActions, {
     REFRESH_TOKEN,
     GET_PROFILE,    
     LOGOUT,
+    REGISTER,
 } from './session.actions'
 import requests from './session.services'
 import { push } from 'connected-react-router'
-import roles from '../../utils/roles';
+import { ADMIN, TEACHER, STUDENT, UNVERIFIED_STUDENT } from '../../utils/roles';
 import adminActions from '../admin/admin.actions';
 import {tenDaysBeforeNow} from "../../utils/dates";
-import studentActions from "../student/student.actions";
+import teacherActions from '../teacher/teacher.actions';
 
 const sessionMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
     switch (action.type) {
         case LOGIN:
-            const { email, password } = action; 
-            requests.login(email, password)
+            const { email: loginEmail, password: loginPassword } = action; 
+            requests.login(loginEmail, loginPassword)
                 .then(data => {
                     dispatch(sessionActions.loginResponse(data));
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('role', data.role);
                     dispatch(sessionActions.getProfile())
-                    if (data.role === roles.ADMIN) {
-                        dispatch(adminActions.getStudents())
-                        dispatch(adminActions.getTeachers())
-                        dispatch(adminActions.getLessons())
-                        dispatch(adminActions.getPayments())
-                        dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
-                    }
-                    if (data.role === roles.STUDENT) {
-                      dispatch(studentActions.getLessons())
-                      dispatch(studentActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
-                    }
+
+                    switch (data.role) {
+                        case ADMIN:
+                            dispatch(adminActions.getStudents())
+                            dispatch(adminActions.getTeachers())
+                            dispatch(adminActions.getLessons())
+                            dispatch(adminActions.getPayments())
+                            dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
+                            break;
+
+                        case TEACHER:
+                            dispatch(teacherActions.getLessons())
+                            dispatch(teacherActions.getAttendances())
+                            break;
+
+                        case STUDENT:
+                            // TODO: student actions here
+                            break;
+
+                        case UNVERIFIED_STUDENT:
+                            // TODO: unverified actions here
+                            break;
+
+                            
+                        default:
+                            break;
+                    } 
                     dispatch(push('/profile'));
                 })
                 .catch(error => dispatch(sessionActions.loginError(error)))
             break;
             
+        case REGISTER:
+            const { email: registerEmail, password: registerPassword } = action;
+            requests.register(registerEmail, registerPassword)
+                .then(response => {
+                    dispatch(sessionActions.registerResponse(response));
+                    // automatic login
+                    dispatch(sessionActions.login(registerEmail, registerPassword));
+                })
+                .catch(error => dispatch(sessionActions.registerError(error)))
+                break;
+            
         case REFRESH_TOKEN:
             requests.checkToken()
                 .then(data => { 
-                    if (localStorage.getItem('role') === roles.ADMIN) {
+                    if (localStorage.getItem('role') === "ROLE_ADMIN") {
                         dispatch(sessionActions.getProfile())
                         dispatch(adminActions.getStudents())
                         dispatch(adminActions.getTeachers())
                         dispatch(adminActions.getLessons())
                         dispatch(adminActions.getPayments())
                         dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
-                    }
-                    if (localStorage.getItem('role')=== roles.STUDENT) {
-                        dispatch(studentActions.getLessons())
-                        dispatch(studentActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
                     dispatch(sessionActions.refreshTokenResponse(data))})
                 .catch(error => {
