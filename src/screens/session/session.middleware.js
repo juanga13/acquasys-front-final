@@ -11,6 +11,7 @@ import { ADMIN, TEACHER, STUDENT, UNVERIFIED_STUDENT } from '../../utils/roles';
 import adminActions from '../admin/admin.actions';
 import {tenDaysBeforeNow} from "../../utils/dates";
 import teacherActions from '../teacher/teacher.actions';
+import studentActions from "../student/student.actions";
 
 const sessionMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
@@ -39,7 +40,8 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                             break;
 
                         case STUDENT:
-                            // TODO: student actions here
+                          dispatch(studentActions.getLessons())
+                          dispatch(studentActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                             break;
 
                         case UNVERIFIED_STUDENT:
@@ -69,13 +71,17 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
         case REFRESH_TOKEN:
             requests.checkToken()
                 .then(data => { 
-                    if (localStorage.getItem('role') === "ROLE_ADMIN") {
+                    if (localStorage.getItem('role') === ADMIN) {
                         dispatch(sessionActions.getProfile())
                         dispatch(adminActions.getStudents())
                         dispatch(adminActions.getTeachers())
                         dispatch(adminActions.getLessons())
                         dispatch(adminActions.getPayments())
                         dispatch(adminActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
+                    }
+                    if (localStorage.getItem('role')=== STUDENT) {
+                        dispatch(studentActions.getLessons())
+                        dispatch(studentActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
                     dispatch(sessionActions.refreshTokenResponse(data))})
                 .catch(error => {

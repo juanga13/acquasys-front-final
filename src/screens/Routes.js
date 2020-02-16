@@ -28,16 +28,12 @@ import {
     Lessons as TeacherLessons,
     Attendances as TeacherAttendances,
 } from './teacher/index.teacher'
+import StudentCalendar from "./student/Calendar/StudentCalendar";
+import StudentLessons from "./student/Lessons/StudentLessons";
+import StudentProfile from "./student/Profile/StudentProfile";
+import StudentDashboard from "./student/Dashboard/StudentDashboard";
 import Register from './session/Register/Register'
-// import {
-//     Profile as StudentProfile,
-//     Dashboard as StudentDashboard,
-//     Calendar as StudentCalendar,
-//     Lessons as StudentLessons,
-// } from './student/index.student'
-// import {
-//     Profile as UnverifiedProfile,
-// } from './unverified/index.unverified'
+
 
 class Routes extends Component {
     componentDidMount() {
@@ -112,9 +108,10 @@ class Routes extends Component {
                                 <Route exact path='/' component={Home}/>
                                 <Route path='/news' component={News}/>
                                 <Route path='/contact' component={Contact}/>
-                                {/* <Route path='/profile' component={StudentProfile}/>
+                                <Route path='/profile' component={StudentProfile}/>
                                 <Route path='/dashboard' component={StudentDashboard}/>
-                                <Route path='/calendar' component={StudentCalendar}/> */}
+                                <Route path='/calendar' component={StudentCalendar}/>
+                                <Route path='/lessons' component={StudentLessons}/>
                                 {/* TODO: student specific routes */}
 
                                 <Route path="*" render={() => <Redirect to='/dashboard'/>}/>

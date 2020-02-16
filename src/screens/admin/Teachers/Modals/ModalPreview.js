@@ -10,8 +10,8 @@ class ModalPreview extends Component {
 
     render() {
         const { data, isOpen } = this.props;
-        
-        return (
+        if (data)
+          return (
             <Modal dimmer='blurring' open={isOpen} onClose={this.props.onClose}>
                 <Modal.Header>Planilla de datos - Modo vista previa</Modal.Header>
                 {data !== null && <Modal.Content image>
@@ -21,14 +21,14 @@ class ModalPreview extends Component {
                             <Menu.Item name='Datos personales' active={this.state.activeMenu === 0} onClick={() => this.setState({activeMenu: 0})}/>
                             <Menu.Item name='Datos de los padres' active={this.state.activeMenu === 1} onClick={() => this.setState({activeMenu: 1})}/>
                         </Menu>
-                        {this.state.activeMenu === 0 
+                        {this.state.activeMenu === 0
                             ? (<Grid style={{
-                                    width: '100%', 
-                                    border: '1px solid lightgrey', 
+                                    width: '100%',
+                                    border: '1px solid lightgrey',
                                     borderTop: 'none',
                                     marginLeft: 0,
                                 }}>
-                                
+
                                 <DataValuePair name='Nombre: '              value={data.name}/>
                                 <DataValuePair name='Apellido: '            value={data.surname}/>
                                 <DataValuePair name='DNI: '                 value={data.dni}/>
@@ -44,12 +44,12 @@ class ModalPreview extends Component {
                                 <DataValuePair name='Esta verificado: '     icon value={data.verified ? 'check' : 'close'}/>
                             </Grid>)
                             : (<Grid style={{
-                                    width: '100%', 
-                                    border: '1px solid lightgrey', 
+                                    width: '100%',
+                                    border: '1px solid lightgrey',
                                     borderTop: 'none',
                                     marginLeft: 0,
                                 }}>
-                                    
+
                                 <DataValuePair name='Nombre: '              value={data.fatherName}/>
                                 <DataValuePair name='Apellido: '            value={data.fatherSurname}/>
                                 <DataValuePair name='Telefono: '            value={data.fatherPhone}/>
@@ -72,6 +72,7 @@ class ModalPreview extends Component {
                 </Modal.Actions>
             </Modal>
         )
+      return null
     }
 }
 
