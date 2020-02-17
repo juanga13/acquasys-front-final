@@ -10,6 +10,7 @@ import adminTeachersReducer from '../screens/admin/Teachers/teachers.reducer'
 // import adminLessonsReducer from '../screens/admin/Lessons/lessons.reducer'
 // import adminPaymentsReducer from '../screens/admin/Payments/payments.reducer'
 import studentReducer from '../screens/student/student.reducer'
+import unverifiedReducer from '../screens/unverified/unverified.reducer'
 // console.log('root reducer')
 const rootReducer = (history) => combineReducers({
     session: sessionReducer,
@@ -21,6 +22,7 @@ const rootReducer = (history) => combineReducers({
         // payments: adminPaymentsReducer,
     }),
     student: studentReducer,
+    unverified: unverifiedReducer,
     router: connectRouter(history),
 })
 

@@ -33,6 +33,7 @@ import StudentLessons from "./student/Lessons/StudentLessons";
 import StudentProfile from "./student/Profile/StudentProfile";
 import StudentDashboard from "./student/Dashboard/StudentDashboard";
 import Register from './session/Register/Register'
+import UnverifiedProfile from "./unverified/UnverifiedProfile/UnverifiedProfile";
 
 
 class Routes extends Component {
@@ -129,7 +130,7 @@ class Routes extends Component {
                                 <Route exact path='/' component={Home}/>
                                 <Route path='/news' component={News}/>
                                 <Route path='/contact' component={Contact}/>
-                                {/* <Route path='/profile' component={UnverifiedProfile}/> */}
+                                <Route path='/profile' component={UnverifiedProfile}/>
                                 
                                 <Route path="*" render={() => <Redirect to='/dashboard'/>}/>
                             </Switch>

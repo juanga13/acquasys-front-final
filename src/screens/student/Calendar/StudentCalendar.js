@@ -55,7 +55,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    //editLesson: (lesson) => dispatch(adminActions.editLesson(lesson)),
+    //editLesson: (lesson) => dispatch(unverifiedActions.editLesson(lesson)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(StudentCalendar))

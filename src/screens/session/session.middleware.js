@@ -12,6 +12,7 @@ import adminActions from '../admin/admin.actions';
 import {tenDaysBeforeNow} from "../../utils/dates";
 import teacherActions from '../teacher/teacher.actions';
 import studentActions from "../student/student.actions";
+import unverifiedActions from "../unverified/unverified.actions";
 
 const sessionMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
@@ -83,6 +84,9 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
                         dispatch(studentActions.getLessons())
                         dispatch(studentActions.getCalendar(tenDaysBeforeNow().getTime(), new Date().getTime()))
                     }
+                  if (localStorage.getItem('role')=== UNVERIFIED_STUDENT) {
+                    dispatch(unverifiedActions.getStudentProfile())
+                  }
                     dispatch(sessionActions.refreshTokenResponse(data))})
                 .catch(error => {
                     delete localStorage['token'];
