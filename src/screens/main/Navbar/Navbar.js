@@ -29,20 +29,26 @@ class Navbar extends Component {
         )        
     }
 
-    renderLoggedInItemsLeft() {
+    renderNotLoggedInItems() {
         return ([
-            <Menu.Item as={NavLink} to='/dashboard' key='navlink-profile'>
-                <Icon name='th large'/>
-                Dashboard
-            </Menu.Item>,
             <Menu.Item as={NavLink} to='/news' key='navbar-item-news'>Noticias</Menu.Item>,
             <Menu.Item as={NavLink} to='/contact' key='navbar-item-contact'>Contacto</Menu.Item>,
-            
+            <Menu.Item as={NavLink} to='/login' key='navbar-item-login'>Ingresar</Menu.Item>,
+            <Menu.Item as={NavLink} to='/register' key='navbar-item-login'>Registrarse</Menu.Item>,
+        ])
+    }
+
+    renderLoggedInItemsLeft() {
+        return ([
+            <Menu.Item as={NavLink} to='/dashboard' key='navlink-profile'><Icon name='th large'/>Dashboard</Menu.Item>,
+            // <Menu.Item as={NavLink} to='/news' key='navbar-item-news'>Noticias</Menu.Item>,
+            // <Menu.Item as={NavLink} to='/contact' key='navbar-item-contact'>Contacto</Menu.Item>,
         ])
     }
 
     renderLoggedInItemsRight() {
         const role = localStorage.getItem('role');
+        console.log('Hola, rendering logged in items right', role);
         switch(role) {
             case ADMIN:
                 return ([
@@ -117,15 +123,6 @@ class Navbar extends Component {
                 </Menu.Header>
             ])
         }
-    }
-
-    renderNotLoggedInItems() {
-        return ([
-            <Menu.Item as={NavLink} to='/news' key='navbar-item-news'>Noticias</Menu.Item>,
-            <Menu.Item as={NavLink} to='/contact' key='navbar-item-contact'>Contacto</Menu.Item>,
-            <Menu.Item as={NavLink} to='/login' key='navbar-item-login'>Ingresar</Menu.Item>,
-            <Menu.Item as={NavLink} to='/register' key='navbar-item-login'>Registrarse</Menu.Item>,
-        ])
     }
 }
 

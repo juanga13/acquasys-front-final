@@ -1,7 +1,7 @@
 import { baseUrl } from '../../../settings'
 
 const requests = {
-    createStudent: (data) => {
+    createLesson: (data) => {
         const requestOptions = {
             method: 'POST',
             mode: 'cors',
@@ -12,14 +12,14 @@ const requests = {
             body: JSON.stringify(data),
         };
 
-        return fetch(baseUrl + '/api/student/add', requestOptions)
+        return fetch(baseUrl + '/api/lesson/add', requestOptions)
             .then(response => {
                 if (response.ok) return response.json()
                 else throw response.json()
             })
     },
 
-    updateStudent: (data) => {
+    updateLesson: (data) => {
         const requestOptions = {
             method: 'PUT',
             mode: "cors",
@@ -30,14 +30,14 @@ const requests = {
             body: JSON.stringify(data),
         };
 
-        return fetch(baseUrl + '/api/student/update', requestOptions)
+        return fetch(baseUrl + '/api/lesson/update', requestOptions)
             .then(response => {
                 if (response.ok) return response.json()
                 else throw response.json()
             })
     },
 
-    deleteStudent: (id) => {
+    deleteLesson: (id) => {
         const requestOptions = {
             method: 'DELETE',
             mode: 'cors',
@@ -46,47 +46,12 @@ const requests = {
             },
         };
         
-        return fetch(baseUrl + '/api/student/delete/' + id, requestOptions)
+        return fetch(baseUrl + '/api/lesson/delete/' + id, requestOptions)
             .then(response => {
                 if (response.ok) return response.json()
                 else throw response.json()
             })
     },
-
-    verifyStudent: (id) => {
-        let requestOptions = {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-        }
-
-        return fetch(baseUrl + '/api/student/verify/' + id, requestOptions)
-            .then(response => {
-                if (response.ok) return response.json()
-                else throw response.json()
-            })
-    },
-
-    /**
-     * NOT DONE YET 
-     */
-    getStudentLessons: (id) => {
-        const requestOptions = {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Authorization': 'Bearer' + localStorage.getItem('token')
-            }
-        }
-
-        return fetch(baseUrl + 'api/', requestOptions)
-            .then(response => {
-                if (response.ok) return response.json()
-                else throw response.json()
-            })
-    }
 }
 
 export default requests;

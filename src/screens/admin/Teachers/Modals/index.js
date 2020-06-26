@@ -1,5 +1,5 @@
 import ModalPreview from './ModalPreview'
-import ModalNew from './ModalNew'
+import ModalEdit from './ModalEdit'
 import ModalDelete from './ModalDelete'
 
-export { ModalPreview, ModalNew, ModalDelete }
+export { ModalPreview, ModalEdit, ModalDelete }

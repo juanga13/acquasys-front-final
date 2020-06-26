@@ -58,6 +58,25 @@ class Routes extends Component {
         }
     }
 
+    renderNotLoggedInRoutes() {
+        return (
+            <div>
+                <Navbar/>
+                <div className='routes-container'>
+                    <Switch>
+                        <Route exact path='/' component={Home}/>
+                        <Route path='/news' component={News}/>
+                        <Route path='/contact' component={Contact}/>
+                        <Route path='/login' component={Login}/>
+                        <Route path='/register' component={Register}/>
+                        
+                        <Route path="*" render={() => <Redirect to='/login'/>}/>
+                    </Switch>
+                </div>
+            </div>
+        )
+    }
+
     renderLoggedInRoutes() {
         const role = localStorage.getItem('role')
         switch (role) {
@@ -140,26 +159,6 @@ class Routes extends Component {
 
             default: return <h1>Invalid role</h1>
         }
-        
-    }
-
-    renderNotLoggedInRoutes() {
-        return (
-            <div>
-                <Navbar/>
-                <div className='routes-container'>
-                    <Switch>
-                        <Route exact path='/' component={Home}/>
-                        <Route path='/news' component={News}/>
-                        <Route path='/contact' component={Contact}/>
-                        <Route path='/login' component={Login}/>
-                        <Route path='/register' component={Register}/>
-                        
-                        <Route path="*" render={() => <Redirect to='/login'/>}/>
-                    </Switch>
-                </div>
-            </div>
-        )
     }
 }
 

@@ -33,7 +33,6 @@ class ModalNewForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault(); 
-        console.log('handle submit');
     }
 
     render() {
@@ -41,20 +40,19 @@ class ModalNewForm extends Component {
         
         return (
             <Form> 
-                {Object.keys(values).map((key, id) => (
-                    // Los otros fields no deberian ser editables
-                    key == 'weekdays' || key == 'name' || key == 'startDate' || key == 'endDate' ?
-                        <Input
+                {/* // Los otros fields no deberian ser editables */}
+                {Object.keys(values).map((key, id) => ((key === 'weekdays' || key === 'name' || key === 'startDate' || key === 'endDate') 
+                    ? <Input
                         key={'modal-new-form-input-' + key + '-' + id} 
                         title={I18n.t(key) + ':'}
                         id={key} 
                         type={getInputType(key)} 
-                        value={values[key]} 
+                        value={(key === 'weekdays') ? values[key].map(weekday => console.log(weekday)) : values[key]} 
                         placeholder={I18n.t(key)} 
                         onChange={this.handleChange} 
                         autoFocus={id === 0}
                         error={errors[key]}/>
-                        : ''
+                    : ''
                 ))}
             </Form>
         )

@@ -20,19 +20,19 @@ const initialState = {
 const adminTeachersReducer = (state = initialState, action) => {
     switch (action.type) {
         /** Create teacher */
-        case CREATE_TEACHER: return {...state, createTeacherStatus: LOADING}
-        case CREATE_TEACHER_RESPONSE: return {...state, createTeacherStatus: SUCCESS}
-        case CREATE_TEACHER_ERROR: return {...state, createTeacherStatus: ERROR}
-        
+        case CREATE_TEACHER: return { ...state, createTeacherStatus: LOADING }
+        case CREATE_TEACHER_RESPONSE: return { ...state, createTeacherStatus: SUCCESS }
+        case CREATE_TEACHER_ERROR: return { ...state, createTeacherStatus: ERROR }
+
         /** Update teacher */
-        case UPDATE_TEACHER: return {...state, updateTeacherStatus: LOADING}
-        case UPDATE_TEACHER_RESPONSE: return {...state, updateTeacherStatus: SUCCESS}
-        case UPDATE_TEACHER_ERROR: return {...state, updateTeacherStatus: ERROR}
-        
+        case UPDATE_TEACHER: return { ...state, updateTeacherStatus: LOADING }
+        case UPDATE_TEACHER_RESPONSE: return { ...state, updateTeacherStatus: SUCCESS }
+        case UPDATE_TEACHER_ERROR: return { ...state, updateTeacherStatus: ERROR }
+
         /** Delete teacher */
-        case DELETE_TEACHER: return {...state, deleteTeacherStatus: LOADING}
-        case DELETE_TEACHER_RESPONSE: return {...state, deleteTeacherStatus: SUCCESS}
-        case DELETE_TEACHER_ERROR: return {...state, deleteTeacherStatus: ERROR}
+        case DELETE_TEACHER: return { ...state, deleteTeacherStatus: LOADING }
+        case DELETE_TEACHER_RESPONSE: return { ...state, deleteTeacherStatus: SUCCESS }
+        case DELETE_TEACHER_ERROR: return { ...state, deleteTeacherStatus: ERROR }
 
 
         default: return state

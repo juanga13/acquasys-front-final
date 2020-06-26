@@ -2,3 +2,56 @@
     background: red !important;
     width: 300px !important;
 }
+
+.field {
+    
+    .form-field-list {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        // border: 1px solid gray;
+        background: #f8f8f8;
+        box-shadow: 1px 3px 10px gray;
+        margin-bottom: 10px;
+        
+        .list-selectors-container {
+            display: flex;
+            flex-flow: row nowrap;
+            
+            .data-list-selector-container {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: flex-start;
+                margin-right: 15px;
+                
+                button {
+                    border: none;
+                    background: #333333;
+                    color: white;
+                    font-weight: 100;
+                    margin-bottom: 3px;
+                    padding: 5px 20px;
+                }
+            }
+            
+            .availableData-list-selector-container {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: flex-start;
+                opacity: 0.6;
+
+                button {
+                    border: none;
+                    background: #aaaaaa;
+                    color: white;
+                    font-weight: 100;
+                    margin-bottom: 3px;
+                    padding: 5px 20px;
+                }
+            }
+        }
+    
+    }
+}

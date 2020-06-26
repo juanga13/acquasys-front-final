@@ -12,11 +12,10 @@ import adminStudentsMiddleware from '../screens/admin/Students/students.middlewa
 import adminTeachersMiddleware from '../screens/admin/Teachers/teachers.middleware'
 import studentMiddleware from "../screens/student/student.middleware";
 import unverifiedMiddleware from "../screens/unverified/unverified.middleware";
-// import adminLessonsMiddleware from '../screens/admin/Lessons/lessons.middleware'
+import adminLessonsMiddleware from '../screens/admin/Lessons/lessons.middleware'
 // import adminPaymentsMiddleware from '../screens/admin/Payments/payments.middleware'
 
 export const history = createBrowserHistory()
-// console.log('configure store')
 export default function configureStore(preloadedState) {
     const store = createStore(
         createRootReducer(history),
@@ -28,7 +27,7 @@ export default function configureStore(preloadedState) {
             adminMiddleware,
             adminStudentsMiddleware,
             adminTeachersMiddleware,
-            // adminLessonsMiddleware,
+            adminLessonsMiddleware,
             // adminPaymentsMiddleware,
             studentMiddleware,
             unverifiedMiddleware,

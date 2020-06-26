@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Loader, Header, Button } from 'semantic-ui-react';
 import MyTable from '../../common/MyTable/MyTable'
-import { ModalPreview, ModalNew, ModalDelete } from './Modals/index';
+import { ModalPreview, ModalEdit, ModalDelete } from './Modals/index';
 import { CLOSED, NEW, PREVIEW, EDIT, DELETE } from '../../../utils/modalStates';
 import adminStudentsActions from './students.actions'
 
@@ -30,6 +30,7 @@ class Students extends Component {
                 <div className='card'>
                     <div className='head'>
                         <Header>Alumnos</Header>
+                        {/* TODO: i18n */}
                         <Button onClick={this.handleNew}>Agregar nuevo alumno</Button>
                     </div>
                     <div className='body table'>
@@ -79,20 +80,16 @@ class Students extends Component {
     }
 
     handleVerifyStudent = id => {
-        console.log('verifying unregistered student');
         this.props.verifyStudent(id);
     }
 
     handleDeleteStudentSubmit = id => {
-        console.log('deleting student');
         this.props.deleteStudent(id);
     }
 
     renderModals() {
         const { modalState, selectedStudent } = this.state;
         const { createStatus, updateStatus, deleteStatus } = this.props;
-        console.log('renderrrr')
-        console.log(selectedStudent)
         return ([
             <ModalPreview
                 key='students-modal-preview'
@@ -100,8 +97,8 @@ class Students extends Component {
                 onClose={this.handleModalClose} 
                 onEdit={this.handleEdit}
                 data={selectedStudent}/>,
-            // ModalNew with not null data is ModalEdit
-            <ModalNew
+            // ModalEdit with not null data is a new student
+            <ModalEdit
                 key='students-modal-new'
                 loading={createStatus === LOADING || updateStatus === LOADING}
                 isOpen={modalState === NEW || modalState === EDIT}    

@@ -4,21 +4,29 @@ import { dummyAvatar } from '../../../../assets/index'
 import Input from '../../../common/Input/Input'
 import { I18n } from 'react-redux-i18n'
 import getInputType from '../../../../utils/inputTypeByKey'
-import regex from '../../../../utils/regex'
 import './ModalNew.scss'
 
+/* selectedTeacher: {
+    id: 200
+    email: "Ismael978@teacher.com"
+    password: "$2a$10$7fzwHZJZH7Mohrqq09sX/ewk35NX8SyQem6X9mkCJRwVH3HZ2OBgi"
+    name: "Ismael"
+    surname: "Fernandez"
+    dni: 38015030
+    sex: "Femenino"
+    avatarUrl: null
+    phoneNumber: "12021844"
+    cuil: "20-38015030-7"
+    role: "TEACHER"
+} */
 const emptyValues = {
     id:'', email:'', password:'', name:'', surname:'', 
-    dni:'', sex:'', avatarUrl:'', phoneNumber:'', 
-    fatherName:'', fatherSurname:'', fatherPhone:'', fatherEmail:'', 
-    motherName:'', motherSurname:'', motherPhone:'', motherEmail:'', 
-    socialPlan:'', affiliateNumber:'', address:'', birthday: new Date('01/01/2005'), 
-    verified:'', inscriptionDate: new Date(), role:'', 
+    dni:'', sex:'', avatarUrl:'', phoneNumber:'', cuil: '', role:'', 
 }
 const emptyErrors = {};
 Object.keys(emptyValues).map(key => emptyErrors[key] = false);
 
-class ModalNew extends Component {
+class ModalEdit extends Component {
     state = {
         values: emptyValues,
         errors: emptyErrors,
@@ -36,12 +44,8 @@ class ModalNew extends Component {
      */
     verifyForm = () => {
         const { 
-            id, email, password, name, surname, dni, sex, avatarUrl, phoneNumber, 
-            fatherName, fatherSurname, fatherPhone, fatherEmail, 
-            motherName, motherSurname, motherPhone, motherEmail, 
-            socialPlan, affiliateNumber, address, birthday, 
-            verified, inscriptionDate, role, 
-         } = this.state.values;
+            email, password, name, surname, dni, phoneNumber, cuil
+        } = this.state.values;
         const errors = {
             id: false,
             email: email.length < 4,
@@ -52,20 +56,7 @@ class ModalNew extends Component {
             sex: false,  // defaulted (dropdown)
             avatarUrl: false,  // optional
             phoneNumber: phoneNumber.length < 8,
-            fatherName: false,  // optional
-            fatherSurname: false,  // optional
-            fatherPhone: false,  // optional
-            fatherEmail: false,  // optional
-            motherName: false,  // optional
-            motherSurname: false,  // optional
-            motherPhone: false,  // optional
-            motherEmail: false,  // optional
-            socialPlan: socialPlan.length < 0,
-            affiliateNumber: affiliateNumber.length < 0,
-            address: address.length < 0,
-            birthday: false,  // defaulted (date)
-            verified: false,  // defaulted (dropdown)
-            inscriptionDate: false,  // defaulted (date)
+            cuil: cuil.length < 11,
             role: false,  // defaulted (dropdown)
         }
 
@@ -92,8 +83,8 @@ class ModalNew extends Component {
     }
 
     handleSubmit = e => {
-        console.log('wanting to submit?')
         e.preventDefault();
+        console.log('wanting to submit?')
         if (this.verifyForm()) {
             console.log('nice! all data is ok')
             this.props.onSubmit(this.state.values);
@@ -155,22 +146,7 @@ class ModalNew extends Component {
                         color='blue'
                         labelPosition='right'
                         icon='long arrow alternate left'
-                        content='Atras'/>}
-                    {!values.verified && <div>
-                        <p>El usuario no esta verificado!</p>
-                        <Button
-                            onClick={this.props.onVerify}  // TODO: change to handleVerify and dont close modal
-                            color='teal'
-                            labelPosition='right'
-                            icon='form'
-                            content='Verificar'/>
-                    </div>}
-                    <Button
-                        onClick={this.props.onClose}
-                        negative
-                        labelPosition='right'
-                        icon='close'
-                        content='Cancelar'/>
+                        content='Cancelar'/>}
                     <Button
                         onClick={this.handleSubmit}
                         positive
@@ -183,4 +159,4 @@ class ModalNew extends Component {
     }
 }
 
-export default ModalNew
+export default ModalEdit

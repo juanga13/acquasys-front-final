@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {ERROR, LOADING, NONE, SUCCESS} from "../../../utils/requestStates";
-import Calendar from "../../common/calendar/Calendar";
+import Calendar from "../../common/Calendar/Calendar";
 import LessonModal from "../Lessons/Modals/LessonModal";
 
 class StudentCalendar extends Component {

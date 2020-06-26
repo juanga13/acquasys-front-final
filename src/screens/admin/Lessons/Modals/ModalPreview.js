@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Loader, Header, Modal, Image, Button, Icon, Grid, Divider, GridRow, Menu } from 'semantic-ui-react';
+import { Modal, Image, Button, Grid, Divider, Menu } from 'semantic-ui-react';
 import { dummyAvatar } from '../../../../assets/index'
-import { I18n } from 'react-redux-i18n';
 import DataValuePair from '../../../common/DataValuePair/DatValuePair';
 
 class ModalPreview extends Component {
@@ -15,7 +14,7 @@ class ModalPreview extends Component {
         return (
             <Modal dimmer='blurring' open={isOpen} onClose={this.props.onClose}>
                 <Modal.Header>Planilla de datos - Modo vista previa</Modal.Header>
-                {data !== null && <Modal.Content image>
+                {data && <Modal.Content image>
                     <Image wrapped size='medium' src={data.avatarUrl || dummyAvatar}/>
                     <Modal.Description style={{width: '100%'}}>
                         <Menu tabular>

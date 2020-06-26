@@ -11,17 +11,17 @@ export const DELETE_TEACHER_RESPONSE = 'DELETE_TEACHER_RESPONSE';
 export const DELETE_TEACHER_ERROR = 'DELETE_TEACHER_ERROR';
 
 const adminTeachersActions = {
-    create: (data) => ({type: CREATE_TEACHER, data: data}),
-    createResponse: (response) => ({type: CREATE_TEACHER_RESPONSE, response: response}),
-    createError: (error) => ({type: CREATE_TEACHER_ERROR, response: error}),
+    createTeacher: (data) => ({type: CREATE_TEACHER, data: data}),
+    createTeacherResponse: (response) => ({type: CREATE_TEACHER_RESPONSE, response: response}),
+    createTeacherError: (error) => ({type: CREATE_TEACHER_ERROR, response: error}),
 
-    update: (data) => ({type: UPDATE_TEACHER, data: data}),
-    updateResponse: (response) => ({type: UPDATE_TEACHER_RESPONSE, response: response}),
-    updateError: (error) => ({type: UPDATE_TEACHER_ERROR, response: error}),
+    updateTeacher: (data) => ({type: UPDATE_TEACHER, data: data}),
+    updateTeacherResponse: (response) => ({type: UPDATE_TEACHER_RESPONSE, response: response}),
+    updateTeacherError: (error) => ({type: UPDATE_TEACHER_ERROR, response: error}),
 
-    delete: (id) => ({type: DELETE_TEACHER, id: id}),
-    deleteResponse: (response) => ({type: DELETE_TEACHER_RESPONSE, response: response}),
-    deleteError: (error) => ({type: DELETE_TEACHER_ERROR, response: error}),
+    deleteTeacher: (id) => ({type: DELETE_TEACHER, id: id}),
+    deleteTeacherResponse: (response) => ({type: DELETE_TEACHER_RESPONSE, response: response}),
+    deleteTeacherError: (error) => ({type: DELETE_TEACHER_ERROR, response: error}),
 
 }
 

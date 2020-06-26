@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Button, Loader } from 'semantic-ui-react'
+import './Modals.scss'
 
 class ModalDelete extends Component {
     handleConfirm = () => {
@@ -10,10 +11,12 @@ class ModalDelete extends Component {
     render() {
         return (
             <Modal
+                className='admin-student-modal-delete' 
                 dimmer='blurring' 
                 open={this.props.isOpen} 
                 onClose={this.props.onClose} 
-                size='mini'>
+                size='mini'
+            >
                 
                 {/* TODO: title and description to I18n */}
                 <Modal.Header>Desea eliminar este usuario?</Modal.Header>

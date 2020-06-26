@@ -15,21 +15,21 @@ export const VERIFY_STUDENT_RESPONSE = 'VERIFY_STUDENT_RESPONSE';
 export const VERIFY_STUDENT_ERROR = 'VERIFY_STUDENT_ERROR';
 
 const adminStudentsActions = {
-    createStudent: (data) => ({type: CREATE_STUDENT, data: data}),
-    createStudentResponse: (data) => ({type: CREATE_STUDENT_RESPONSE, response: data}),
-    createStudentError: (error) => ({type: CREATE_STUDENT_ERROR, response: error}),
+    createStudent: (data) => ({type: CREATE_STUDENT, data}),
+    createStudentResponse: (response) => ({type: CREATE_STUDENT_RESPONSE, response}),
+    createStudentError: (error) => ({type: CREATE_STUDENT_ERROR, error}),
 
-    updateStudent: (data) => ({type: UPDATE_STUDENT, data: data}),
-    updateStudentResponse: (data) => ({type: UPDATE_STUDENT_RESPONSE, response: data}),
-    updateStudentError: (error) => ({type: UPDATE_STUDENT_ERROR, response: error}),
+    updateStudent: (data) => ({type: UPDATE_STUDENT, data}),
+    updateStudentResponse: (response) => ({type: UPDATE_STUDENT_RESPONSE, response}),
+    updateStudentError: (error) => ({type: UPDATE_STUDENT_ERROR, error}),
 
-    deleteStudent: (id) => ({type: DELETE_STUDENT, id: id}),
-    deleteStudentResponse: (id) => ({type: DELETE_STUDENT_RESPONSE, id: id}),
-    deleteStudentError: (error) => ({type: DELETE_STUDENT_ERROR, response: error}),
+    deleteStudent: (id) => ({type: DELETE_STUDENT, id}),
+    deleteStudentResponse: (response) => ({type: DELETE_STUDENT_RESPONSE, response}),
+    deleteStudentError: (error) => ({type: DELETE_STUDENT_ERROR, error}),
 
-    verifyStudent: (id) => ({type: VERIFY_STUDENT, id: id}),
-    verifyStudentResponse: (id) => ({type: VERIFY_STUDENT_RESPONSE, id: id}),
-    verifyStudentError: (error) => ({type: VERIFY_STUDENT_ERROR, response: error}),
+    verifyStudent: (id) => ({type: VERIFY_STUDENT, id}),
+    verifyStudentResponse: (response) => ({type: VERIFY_STUDENT_RESPONSE, response}),
+    verifyStudentError: (error) => ({type: VERIFY_STUDENT_ERROR, error}),
 
 }
 
